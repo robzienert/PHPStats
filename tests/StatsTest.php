@@ -124,9 +124,9 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_beta() {
-		$this->assertEquals(1, round(Stats::beta(1, 1)));
-		$this->assertEquals(0.5, round(Stats::beta(1, 2)));
-		$this->assertEquals(0.5, round(Stats::beta(2, 1)));
+		$this->assertEquals(1, round(Stats::beta(1, 1), 2));
+		$this->assertEquals(0.5, round(Stats::beta(1, 2), 2));
+		$this->assertEquals(0.5, round(Stats::beta(2, 1), 2));
 		$this->assertEquals(0.0015873, round(Stats::beta(5, 5), 7));
 		$this->assertEquals(0.0002525, round(Stats::beta(5, 8), 7));
 	}

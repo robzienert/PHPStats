@@ -333,7 +333,7 @@ class Stats {
 	 * @return float The beta of $a and $b
 	 */
 	public static function beta($a, $b) {
-		return self::gamma($a)*self::gamma($b)/self::gamma($a + $b);
+		return self::gamma($a)*self::gamma($b) / self::gamma($a + $b);
 	}
 	
 	/**
