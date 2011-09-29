@@ -183,7 +183,7 @@ class Stats {
 	 * @return float The covariance of the two supplied arrays
 	 */
 	public static function covariance(array $datax, array $datay) {
-		return self::sumXY($datax, $datay)/$n - self::average($datax)*self::average($datay);
+		return self::sumXY($datax, $datay)/count($datax) - self::average($datax)*self::average($datay);
 	}
 
 	/**

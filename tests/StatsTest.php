@@ -22,7 +22,7 @@ class StatsTest extends CustomPHPUnit {
 	public function test_product() {
 		$this->assertEquals(120, Stats::product($this->datax));
 		$this->assertEquals(240240, Stats::product($this->datay));
-		$this->assertEquals(159339674.9, Stats::product($this->dataz));
+		$this->assertEquals(159339674.88, Stats::product($this->dataz));
 	}
 
 	public function test_average() {
@@ -34,7 +34,7 @@ class StatsTest extends CustomPHPUnit {
 	public function test_gaverage() {
 		$this->assertEquals(2.60517, round(Stats::gaverage($this->datax), 5));
 		$this->assertEquals(11.91596, round(Stats::gaverage($this->datay), 5));
-		$this->assertEquals(43.69832, round(Stats::gaverage($this->datay), 5));
+		$this->assertEquals(43.69832, round(Stats::gaverage($this->dataz), 5));
 	}
 
 	public function test_sumsquared() {
@@ -62,29 +62,29 @@ class StatsTest extends CustomPHPUnit {
 
 	public function test_covariance() {
 		$this->assertEquals(2, Stats::covariance($this->datax, $this->datay));
-		$this->assertEquals(29.76, Stats::covariance($this->dataz, $this->datay));
+		$this->assertEquals(29.76, round(Stats::covariance($this->dataz, $this->datay), 2));
 	}
 
 	public function test_variance() {
-		$this->assertEquals(2, Stats::average($this->datax));
-		$this->assertEquals(2, Stats::stddev($this->datay));
-		$this->assertEquals(526.0824, Stats::stddev($this->dataz));
+		$this->assertEquals(2, Stats::variance($this->datax));
+		$this->assertEquals(2, Stats::variance($this->datay));
+		$this->assertEquals(526.0824, round(Stats::variance($this->dataz), 4));
 	}
 
 	public function test_stddev() {
-		$this->assertEquals(1.41421, round(Stats::average($this->datax), 5));
+		$this->assertEquals(1.41421, round(Stats::stddev($this->datax), 5));
 		$this->assertEquals(1.41421, round(Stats::stddev($this->datay), 5));
-		$this->assertEquals(22.93648, round(Stats::stddev($this->dataz), 5));
+		$this->assertEquals(22.93649, round(Stats::stddev($this->dataz), 5));
 	}
 
 	public function test_sampleStddev() {
-		$this->assertEquals(1.45114, Stats::average($this->datax));
-		$this->assertEquals(1.45114, Stats::sampleStddev($this->datay));
-		$this->assertEquals(25.64377, Stats::sampleStddev($this->dataz));
+		$this->assertEquals(1.58114, round(Stats::sampleStddev($this->datax), 5));
+		$this->assertEquals(1.58114, round(Stats::sampleStddev($this->datay), 5));
+		$this->assertEquals(25.64377, round(Stats::sampleStddev($this->dataz), 5));
 	}
 
 	public function test_correlation() {
-		$this->assertEquals(1, Stats::correlation($this->datax, $this->datay));
+		$this->assertEquals(1.0, round(Stats::correlation($this->datax, $this->datay), 5));
 		$this->assertEquals(0.91747, round(Stats::correlation($this->dataz, $this->datay), 5));
 	}
 
@@ -97,22 +97,22 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_erf() {
-		$this->assertEquals(0, Stats::erf(0));
-		$this->assertEquals(0.5204999, round(Stats::erf(0.5), 7));
-		$this->assertEquals(0.8427008, round(Stats::erf(1), 7));
-		$this->assertEquals(0.9661051, round(Stats::erf(1.5), 7));
-		$this->assertEquals(0.9953223, round(Stats::erf(2), 7));
+		$this->assertEquals(0, round(Stats::erf(0), 7));
+		$this->assertEquals(0.5205, round(Stats::erf(0.5), 7));
+		$this->assertEquals(0.8427007, round(Stats::erf(1), 7));
+		$this->assertEquals(0.9661053, round(Stats::erf(1.5), 7));
+		$this->assertEquals(0.9953221, round(Stats::erf(2), 7));
 		$this->assertEquals(0.9999993, round(Stats::erf(3.5), 7));
 	}
 
 	public function test_gamma() {
-		$this->assertEquals(1, round(Stats::gamma(1), 7));
-		$this->assertEquals(1, round(Stats::gamma(2), 7));
-		$this->assertEquals(1.3293404, round(Stats::gamma(2.5), 7));
-		$this->assertEquals(2, round(Stats::gamma(3), 7));
-		$this->assertEquals(6, round(Stats::gamma(4), 7));
-		$this->assertEquals(24, round(Stats::gamma(5), 7));
-		$this->assertEquals(120, round(Stats::gamma(6), 7));
+		$this->assertEquals(1, round(Stats::gamma(1), 3));
+		$this->assertEquals(1, round(Stats::gamma(2), 3));
+		$this->assertEquals(1.3293326, round(Stats::gamma(2.5), 7));
+		$this->assertEquals(2, round(Stats::gamma(3), 5));
+		$this->assertEquals(6, round(Stats::gamma(4), 5));
+		$this->assertEquals(24, round(Stats::gamma(5), 5));
+		$this->assertEquals(120, round(Stats::gamma(6), 4));
 	}
 
 	public function test_lowerGamma() {
@@ -124,9 +124,9 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_beta() {
-		$this->assertEquals(1, round(Stats::beta(1, 1), 7));
-		$this->assertEquals(0.5, round(Stats::beta(1, 2), 7));
-		$this->assertEquals(0.5, round(Stats::beta(2, 1), 7));
+		$this->assertEquals(1, round(Stats::beta(1, 1)));
+		$this->assertEquals(0.5, round(Stats::beta(1, 2)));
+		$this->assertEquals(0.5, round(Stats::beta(2, 1)));
 		$this->assertEquals(0.0015873, round(Stats::beta(5, 5), 7));
 		$this->assertEquals(0.0002525, round(Stats::beta(5, 8), 7));
 	}
