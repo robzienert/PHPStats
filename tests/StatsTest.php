@@ -132,7 +132,10 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_regularizedIncompleteBeta() {
-
+		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
+		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
+		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
+		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
 	}
 
 	public function test_permutations() {
