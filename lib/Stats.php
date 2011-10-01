@@ -428,7 +428,7 @@ class Stats {
 		}
 		else {
 			//Is this a possibility?  Shouldn't be, but let's collect some data if it is.
-			throw new Exception('else clause in Stats::regularizedIncompleteBeta hit. $a = '.$a.' and $b = '.$b);
+			throw new Exception('else clause in Stats::regularizedIncompleteBeta hit. $a = '.$a.' and $b = '.$b.'<br />Please log the issue at https://github.com/mcordingley/PHPStats/issues if it is not there already.');
 		}
 	}
 

@@ -6,6 +6,8 @@ class LogarithmicRegression extends RegressionModel {
 		$logx = array();
 		foreach ($datax as $x) $logx[] = log($x);
 
+		$this->r = Stats::correlation($logx, $datay);
+
 		$this->beta = Stats::covariance($logx, $datay)/Stats::variance($logx);
 		$this->alpha = Stats::average($datay) - $this->beta*Stats::average($logx);
 	}

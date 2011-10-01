@@ -8,6 +8,8 @@ class PowerRegression extends RegressionModel {
 		$logy = array();
 		foreach ($datay as $y) $logy[] = log($y);
 
+		$this->r = Stats::correlation($logx, $logy);
+
 		$this->beta = Stats::covariance($logx, $logy)/Stats::variance($logx);
 
 		$logalpha = Stats::average($logy) - $this->beta*Stats::average($logx);

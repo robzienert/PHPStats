@@ -6,10 +6,12 @@ class ExponentialRegression extends RegressionModel {
 		$logy = array();
 		foreach ($datay as $y) $logy[] = log($y);
 
+		$this->r = Stats::correlation($datax, $logy);
+
 		$logbeta = Stats::covariance($datax, $logy)/Stats::variance($datax);
 		$logalpha = Stats::average($logy) - $this->beta*Stats::average($datax);
 
-		$this->beta = exp($logbeta)
+		$this->beta = exp($logbeta);
 		$this->alpha = exp($logalpha);
 	}
 	
