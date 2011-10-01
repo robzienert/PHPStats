@@ -13,19 +13,19 @@ class ExponentialRegressionTest extends CustomPHPUnit {
 	}
 	
 	public function test_predict() {
-		$this->assertEquals(84.35218941, round($this->regressionModel->predict(60), 8));
+		$this->assertEquals(84.34167895, round($this->regressionModel->predict(60), 8));
 	}
 	
 	public function test_getAlpha() {
-		$this->assertEquals(171.4617283, round($this->regressionModel->getAlpha(), 7));
+		$this->assertEquals(171.4429259, round($this->regressionModel->getAlpha(), 7));
 	}
 	
 	public function test_getBeta() {
-		$this->assertEquals(0.9882469577, round($this->regressionModel->getBeta(), 10));
+		$this->assertEquals(0.9882467115, round($this->regressionModel->getBeta(), 10));
 	}
 	
 	public function test_getCorrelation() {
-		$this->assertEquals(-0.9849556976, round($this->regressionModel->getCorrelation(), 10));
+		$this->assertEquals(-0.9848429205, round($this->regressionModel->getCorrelation(), 10));
 	}
 }
 ?>

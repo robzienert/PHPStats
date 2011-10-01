@@ -9,7 +9,7 @@ class ExponentialRegression extends RegressionModel {
 		$this->r = Stats::correlation($datax, $logy);
 
 		$logbeta = Stats::covariance($datax, $logy)/Stats::variance($datax);
-		$logalpha = Stats::average($logy) - $this->beta*Stats::average($datax);
+		$logalpha = Stats::average($logy) - $logbeta*Stats::average($datax);
 
 		$this->beta = exp($logbeta);
 		$this->alpha = exp($logalpha);
