@@ -6,26 +6,26 @@ class LogarithmicRegressionTest extends CustomPHPUnit {
 	private $regressionModel;
 
 	public function __construct() {
-		$datax = array();
-		$datay = array();
+		$datax = array(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11);
+		$datay = array(6, 9.5, 13, 15, 16.5, 17.5, 18.5, 19, 19.5, 19.7, 19.8);
 
-		//$this->regressionModel = new LogarithmicRegression($datax, $datay);
+		$this->regressionModel = new LogarithmicRegression($datax, $datay);
 	}
 	
 	public function test_predict() {
-		//$this->assertEquals(139.329214591, round($this->regressionModel->predict(50), 10));
+		$this->assertEquals(24.39781322, round($this->regressionModel->predict(20), 8));
 	}
 	
 	public function test_getAlpha() {
-		//$this->assertEquals(91.0043962074, round($this->regressionModel->getAlpha(), 10));
+		$this->assertEquals(6.09934114, round($this->regressionModel->getAlpha(), 8));
 	}
 	
 	public function test_getBeta() {
-		//$this->assertEquals(0.9664963677, round($this->regressionModel->getBeta(), 10));
+		$this->assertEquals(6.108180041, round($this->regressionModel->getBeta(), 9));
 	}
 	
 	public function test_getCorrelation() {
-		//$this->assertEquals(0.9341638423, round($this->regressionModel->getCorrelation(), 10));
+		$this->assertEquals(0.9931293099, round($this->regressionModel->getCorrelation(), 10));
 	}
 }
 ?>
