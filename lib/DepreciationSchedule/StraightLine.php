@@ -2,7 +2,7 @@
 require_once('DepreciationSchedule.php');
 
 class StraightLine extends DepreciationSchedule {
-	private function calculateSchedule() {
+	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;
 		$depreciableValue = $this->startingValue - $this->salvageValue;
 		$monthlyDepreciation = $depreciableValue / ($this->yearsUsefulLife * 12);

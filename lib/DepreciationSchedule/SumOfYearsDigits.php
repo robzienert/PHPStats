@@ -2,7 +2,7 @@
 require_once('DepreciationSchedule.php');
 
 class SumOfYearsDigits extends DepreciationSchedule {
-	private function calculateSchedule() {
+	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;
 		$depreciableValue = $this->startingValue - $this->salvageValue;
 		

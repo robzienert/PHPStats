@@ -19,7 +19,7 @@ abstract class DepreciationSchedule {
 		$this->calculateSchedule();
 	}
 	
-	abstract private function calculateSchedule();
+	abstract protected function calculateSchedule();
 	
 	public function getDepreciationExpense($year, $month = FALSE) {
 		if (is_numeric($month)) return $this->schedule['DepreciationExpense'][floor($year)][floor($month)];
@@ -34,7 +34,7 @@ abstract class DepreciationSchedule {
 	
 	public function getAccumulatedDepreciation($year, $month = FALSE) {
 		if (is_numeric($month)) return $this->schedule['AccumulatedDepreciation'][floor($year)][floor($month)];
-		else return $this->schedule['AccumulatedDepreciation'][$year][11];
+		else return end($this->schedule['AccumulatedDepreciation'][$year]);
 	}
 }
 ?>

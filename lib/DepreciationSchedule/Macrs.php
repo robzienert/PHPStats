@@ -11,7 +11,7 @@ class Macrs extends DepreciationSchedule {
 		20 => array(.0375, .07219, .06677, .06177, .05713, .05285, .04888, .04522, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .02231)
 	);
 
-	private function calculateSchedule() {
+	protected function calculateSchedule() {
 		if (!in_array($this->yearsUsefulLife, array_keys($this->macrsTables)) echo ''; //Invalid year, throw exception
 		
 		$accumulatedDepreciation = 0;

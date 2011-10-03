@@ -2,7 +2,7 @@
 require_once('DepreciationSchedule.php');
 
 class DoubleDeclining extends DepreciationSchedule {
-	private function calculateSchedule() {
+	protected function calculateSchedule() {
 		$accumulatedDepreciation = 0;
 		
 		for ($i = 0; $i < $this->yearsUsefulLife; $i++) {
