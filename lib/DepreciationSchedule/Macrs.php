@@ -12,11 +12,11 @@ class Macrs extends DepreciationSchedule {
 	);
 
 	protected function calculateSchedule() {
-		if (!in_array($this->yearsUsefulLife, array_keys($this->macrsTables)) throw new Exception('Invalid MACRS period: '.$this->yearsUsefulLife.' Valid values:'.implode(', ', array_keys($this->macrsTables))); //Invalid year, throw exception
+		if (!in_array($this->yearsUsefulLife, array_keys($this->macrsTables))) throw new Exception('Invalid MACRS period: '.$this->yearsUsefulLife.' Valid values:'.implode(', ', array_keys($this->macrsTables))); //Invalid year, throw exception
 		
 		$accumulatedDepreciation = 0;
 		$depreciableValue = $this->startingValue - $this->salvageValue;
-		$depreciationTable = $macrsTables[$this->yearsUsefulLife];
+		$depreciationTable = $this->macrsTables[$this->yearsUsefulLife];
 		
 		for ($i = 0; $i <= $this->yearsUsefulLife; $i++) { //Go $yearsUsefulLife + 1 times, because of MACRS's half-year convention
 			$monthlyDepreciation = ($depreciableValue * $depreciationTable[$i])/12;
