@@ -3,16 +3,16 @@ require_once('DepreciationSchedule.php');
 
 class Macrs extends DepreciationSchedule {
 	private $macrsTables = array(
-		3 => array(.3333, .4445, .1481, .0741),
-		5 => array(.2, .32, .192, .1152, .1152, .0576),
-		7 => array(.1429, .2449, .1749, .1249, .0893, .0892, .0893, .0446),
-		10 => array(.1, .18, .144, .1152, .0922, .0737, .0655, .0655, .0656, .0655, .0328),
-		15 => array(.05, .095, .0855, .077, .0693, .0623, .059, .059, .0591, .059, .0591, .059, .0591, .059, .0591, .0295),
-		20 => array(.0375, .07219, .06677, .06177, .05713, .05285, .04888, .04522, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .04462, .04461, .02231)
+		3 => array(0.3333, 0.4445, 0.1481, 0.0741),
+		5 => array(0.2, 0.32, 0.192, 0.1152, 0.1152, 0.0576),
+		7 => array(0.1429, 0.2449, 0.1749, 0.1249, 0.0893, 0.0892, 0.0893, 0.0446),
+		10 => array(0.1, 0.18, 0.144, 0.1152, 0.0922, 0.0737, 0.0655, 0.0655, 0.0656, 0.0655, 0.0328),
+		15 => array(0.05, 0.095, 0.0855, 0.077, 0.0693, 0.0623, 0.059, 0.059, 0.0591, 0.059, 0.0591, 0.059, 0.0591, 0.059, 0.0591, 0.0295),
+		20 => array(0.0375, 0.07219, 0.06677, 0.06177, 0.05713, 0.05285, 0.04888, 0.04522, 0.04462, 0.04461, 0.04462, 0.04461, 0.04462, 0.04461, 0.04462, 0.04461, 0.04462, 0.04461, 0.04462, 0.04461, 0.02231)
 	);
 
 	protected function calculateSchedule() {
-		if (!in_array($this->yearsUsefulLife, array_keys($this->macrsTables)) echo ''; //Invalid year, throw exception
+		if (!in_array($this->yearsUsefulLife, array_keys($this->macrsTables)) throw new Exception('Invalid MACRS period: '.$this->yearsUsefulLife.' Valid values:'.implode(', ', array_keys($this->macrsTables))); //Invalid year, throw exception
 		
 		$accumulatedDepreciation = 0;
 		$depreciableValue = $this->startingValue - $this->salvageValue;
