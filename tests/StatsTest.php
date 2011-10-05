@@ -2,6 +2,18 @@
 require_once('tests/CustomPHPUnit.php');
 require_once('lib/Stats.php');
 
+/**
+ * Note to any reading this file:
+ * 
+ * A number of these tests use rounded numbers.  That is, we are not testing
+ * whether or not something is exactly right, but whether it is close enough.
+ * In most cases, this is because certain functions, like the gamma function,
+ * require numeric approximations to the real value.  Any efforts to sharpen
+ * the corresponding approximations and therefore be able to make the tests
+ * accurate to a higher degree would be most welcome.
+ */
+
+
 class StatsTest extends CustomPHPUnit {
 	private $datax;
 	private $datay;
@@ -49,15 +61,15 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_sse() {
-		//$this->assertEquals(190, Stats::sse($this->datax));
-		//$this->assertEquals(190, Stats::sse($this->datay));
-		//$this->assertEquals(190, Stats::sse($this->dataz));
+		$this->assertEquals(10, Stats::sse($this->datax));
+		$this->assertEquals(10, Stats::sse($this->datay));
+		$this->assertEquals(2630.412, Stats::sse($this->dataz));
 	}
 
 	public function test_mse() {
-		//$this->assertEquals(190, Stats::mse($this->datax));
-		//$this->assertEquals(190, Stats::mse($this->datay));
-		//$this->assertEquals(190, Stats::mse($this->dataz));
+		$this->assertEquals(2, Stats::mse($this->datax));
+		$this->assertEquals(2, Stats::mse($this->datay));
+		$this->assertEquals(526.0824, Stats::mse($this->dataz));
 	}
 
 	public function test_covariance() {
@@ -116,11 +128,23 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_lowerGamma() {
-
+		$this->assertEquals(0.16060, round(Stats::gamma(3, 1), 5));
+		$this->assertEquals(0.064665, round(Stats::gamma(3, 2), 5));
+		$this->assertEquals(0.91237, round(Stats::gamma(3, 2.5), 5));
+		$this->assertEquals(400.07089, round(Stats::gamma(10, 3), 5));
+		$this->assertEquals(2951.02827, round(Stats::gamma(10, 4), 5));
+		$this->assertEquals(11549.76544, round(Stats::gamma(10, 5), 5));
+		$this->assertEquals(30454.34729, round(Stats::gamma(10, 6), 5));
 	}
 	
 	public function test_upperGamma() {
-
+		$this->assertEquals(1.83940, round(Stats::gamma(3, 1), 5));
+		$this->assertEquals(1.35335, round(Stats::gamma(3, 2), 5));
+		$this->assertEquals(1.08763, round(Stats::gamma(3, 2.5), 5));
+		$this->assertEquals(362479.92911, round(Stats::gamma(10, 3), 5));
+		$this->assertEquals(359928.97173, round(Stats::gamma(10, 4), 5));
+		$this->assertEquals(351330.23456, round(Stats::gamma(10, 5), 5));
+		$this->assertEquals(332425.65271, round(Stats::gamma(10, 6), 5));
 	}
 
 	public function test_beta() {
@@ -132,10 +156,11 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_regularizedIncompleteBeta() {
-		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
-		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
-		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
-		//$this->assertEquals(, Stats::regularizedIncompleteBeta(, , ));
+		$this->assertEquals(0.25, round(Stats::regularizedIncompleteBeta(1, 1, 0.25)), 5);
+		$this->assertEquals(0.43750, round(Stats::regularizedIncompleteBeta(1, 2, 0.25)), 5);
+		$this->assertEquals(0.06250, round(Stats::regularizedIncompleteBeta(2, 1, 0.25)), 5);
+		$this->assertEquals(0.73343, round(Stats::regularizedIncompleteBeta(5, 5, 0.6)), 5);
+		$this->assertEquals(0.94269, round(Stats::regularizedIncompleteBeta(5, 8, 0.6)), 5);
 	}
 
 	public function test_permutations() {
