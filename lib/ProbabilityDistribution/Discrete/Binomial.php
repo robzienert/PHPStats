@@ -1,6 +1,37 @@
 <?php
+/**
+ * PHP Statistics Library
+ *
+ * Copyright (C) 2011-2012 Michael Cordingley <mcordingley@gmail.com>
+ * 
+ * This library is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU Library General Public License as published
+ * by the Free Software Foundation; either version 3 of the License, or 
+ * (at your option) any later version.
+ * 
+ * This library is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Library General Public
+ * License for more details.
+ * 
+ * You should have received a copy of the GNU Library General Public License
+ * along with this library; if not, write to the Free Software Foundation, 
+ * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA
+ * 
+ * LGPL Version 3
+ *
+ * @package PHPStat
+ */
+ 
 require_once('DiscreteDistribution.php');
 
+/**
+ * Binomial class
+ * 
+ * Represents the Binomial distribution, a distribution that represents the
+ * number of successes in a larger number of Bernoulli trials.
+ * For more information, see: http://en.wikipedia.org/wiki/Binomial_distribution
+ */
 class Binomial extends DiscreteDistribution {
 	private $n;
 	private $p;
