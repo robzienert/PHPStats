@@ -350,8 +350,8 @@ class Stats {
 	 * @return float The incomplete beta of $a and $b, up to $x
 	 */
 	public static function regularizedIncompleteBeta($a, $b, $x) {
-		$k = ceiling($a);
-		$j = ceiling($b);
+		$k = ceil($a);
+		$j = ceil($b);
 
 		if ((self::is_integer($b) && !self::is_integer($a)) || (self::is_integer($a) && self::is_integer($b) && $a <= 60 && $j <= $k)) {
 			// Equation (14)
