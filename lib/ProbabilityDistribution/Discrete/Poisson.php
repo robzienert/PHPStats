@@ -48,7 +48,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->lambda);
+		return self::getRvs($this->lambda);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function pmf($x) {
-		return self::pmf($x, $this->lambda);
+		return self::getPmf($x, $this->lambda);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->lambda);
+		return self::getCdf($x, $this->lambda);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->lambda);
+		return self::getSf($x, $this->lambda);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->lambda);
+		return self::getPpf($x, $this->lambda);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->lambda);
+		return self::getIsf($x, $this->lambda);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ class Poisson extends DiscreteDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->lambda);
+		return self::getStats($moments, $this->lambda);
 	}
 
 	//These represent the calculation engine of the class.
@@ -119,7 +119,7 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events.
 		@return float The random variate.
 	*/
-	static function rvs($lambda = 1) {
+	static function getRvs($lambda = 1) {
 		//Knuth's algorithm.  TODO: Replace with more efficient algorithm
 		$l = exp(-$lamda);
 		$k = 0;
@@ -141,8 +141,8 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return float The probability
 	*/
-	static function pmf($x, $lambda = 1) {
-		return exp(-$lamda)*pow($lamda, $x)/self::factorial($x);
+	static function getPmf($x, $lambda = 1) {
+		return exp(-$lamda)*pow($lamda, $x)/Stats::factorial($x);
 	}
 	
 	/**
@@ -152,10 +152,10 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return float The probability
 	*/
-	static function cdf($x, $lambda = 1) {
+	static function getCdf($x, $lambda = 1) {
 		$sum = 0.0;
 		for ($count = 0; $count <= $x; $count++) {
-			$sum += self::pmf($lambda, $count);
+			$sum += self::getPmf($lambda, $count);
 		}
 		return $sum;
 	}
@@ -167,8 +167,8 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return float The probability
 	*/
-	static function sf($x, $lambda = 1) {
-		return 1.0 - self::cdf($x, $lambda);
+	static function getSf($x, $lambda = 1) {
+		return 1.0 - self::getCdf($x, $lambda);
 	}
 	
 	/**
@@ -178,7 +178,7 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $lambda = 1) {
+	static function getPpf($x, $lambda = 1) {
 		return 0; //TODO: Poisson PPF
 	}
 	
@@ -189,8 +189,8 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $lambda = 1) {
-		return self::ppf(1.0 - $x, $lambda);
+	static function getIsf($x, $lambda = 1) {
+		return self::getPpf(1.0 - $x, $lambda);
 	}
 	
 	/**
@@ -200,15 +200,15 @@ class Poisson extends DiscreteDistribution {
 		@param float $lambda The rate of events
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $lambda = 1) {
-		$moments = array();
+	static function getStats($moments = 'mv', $lambda = 1) {
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $lambda;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = $lambda;
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = pow($lambda, -0.5);
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = 1.0/$lambda;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $lambda;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $lambda;
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = pow($lambda, -0.5);
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = 1.0/$lambda;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

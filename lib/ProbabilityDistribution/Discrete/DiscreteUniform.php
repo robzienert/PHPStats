@@ -48,7 +48,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->minimum, $this->maximum);
+		return self::getRvs($this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function pmf($x) {
-		return self::pmf($x, $this->minimum, $this->maximum);
+		return self::getPmf($x, $this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->minimum, $this->maximum);
+		return self::getCdf($x, $this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->minimum, $this->maximum);
+		return self::getSf($x, $this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -88,7 +88,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->minimum, $this->maximum);
+		return self::getPpf($x, $this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -98,7 +98,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->minimum, $this->maximum);
+		return self::getIsf($x, $this->minimum, $this->maximum);
 	}
 	
 	/**
@@ -108,7 +108,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->minimum, $this->maximum);
+		return self::getStats($moments, $this->minimum, $this->maximum);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -120,7 +120,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter.
 		@return float The random variate.
 	*/
-	static function rvs($minimum = 0, $maximum = 1) {
+	static function getRvs($minimum = 0, $maximum = 1) {
 		return mt_rand($minimum, $maximum);
 	}
 	
@@ -132,7 +132,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter
 		@return float The probability
 	*/
-	static function pmf($x, $minimum = 0, $maximum = 1) {
+	static function getPmf($x, $minimum = 0, $maximum = 1) {
 		if ($x >= $minimum && $x <= $maximum) return 1.0/($maximum - $minimum);
 		else return 0.0;
 	}
@@ -145,7 +145,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter
 		@return float The probability
 	*/
-	static function cdf($x, $minimum = 0, $maximum = 1) {
+	static function getCdf($x, $minimum = 0, $maximum = 1) {
 		if ($x >= $minimum && $x <= $maximum) return $x - $minimum / ($maximum - $minimum);
 		elseif ($x > $maximum) return 1.0;
 		else return 0.0;
@@ -159,8 +159,8 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter
 		@return float The probability
 	*/
-	static function sf($x, $minimum = 0, $maximum = 1) {
-		return 1.0 - self::cdf($x, $minimum, $maximum);
+	static function getSf($x, $minimum = 0, $maximum = 1) {
+		return 1.0 - self::getCdf($x, $minimum, $maximum);
 	}
 	
 	/**
@@ -171,8 +171,8 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $minimum = 0, $maximum = 1) {
-		return $minimum + ceiling($x*($maximum - $minimum));
+	static function getPpf($x, $minimum = 0, $maximum = 1) {
+		return $minimum + ceil($x*($maximum - $minimum));
 	}
 	
 	/**
@@ -183,8 +183,8 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $minimum = 0, $maximum = 1) {
-		return self::ppf(1.0 - $x, $minimum, $maximum);
+	static function getIsf($x, $minimum = 0, $maximum = 1) {
+		return self::getPpf(1.0 - $x, $minimum, $maximum);
 	}
 	
 	/**
@@ -195,15 +195,15 @@ class DiscreteUniform extends DiscreteDistribution {
 		@param float $maximum The maximum parameter. Default 1
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $minimum = 0, $maximum = 1) {
-		$moments = array();
+	static function getStats($moments = 'mv', $minimum = 0, $maximum = 1) {
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = 0.5*($maximum + $minimum);
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = (1.0/12)*pow(($maximum - $minimum + 1), 2);
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = 0;
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = -(6.0*(pow(($maximum - $minimum + 1), 2)+ 1 ))/(5.0*(pow(($maximum - $minimum + 1), 2) - 1));
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = 0.5*($maximum + $minimum);
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = (1.0/12)*pow(($maximum - $minimum + 1), 2);
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = 0;
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = -(6.0*(pow(($maximum - $minimum + 1), 2)+ 1 ))/(5.0*(pow(($maximum - $minimum + 1), 2) - 1));
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>
