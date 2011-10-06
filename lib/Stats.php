@@ -299,14 +299,21 @@ class Stats {
 	 * 
 	 * Returns the lower gamma function of a number.
 	 * 
-	 * @todo This function not yet implemented.
 	 * @param float $s Upper bound of integration
 	 * @param float $x Argument to the lower gamma function.
 	 * @return float The lower gamma of $x
 	 */
 	public static function lowerGamma($s, $x) {
-		//TODO: Implement lower Gamma function (Holy ****ing ****!)
-		return 1;
+		//Special thanks to http://www.reddit.com/user/harlows_monkeys for this algorithm.
+		if ($x == 0) return 0;
+		$t = exp($s*log($x)) / $s;
+		$v = $t;
+		for ($k = 1; $k < 150; ++$k) {
+			$t = -$t * $x * ($s + $k - 1) / (($s + $k) * $k);
+			$v += $t;
+			if (abs($t) < 0.00000000001) break;
+		}
+		return $v;
 	}
 	
 	/**
@@ -314,7 +321,6 @@ class Stats {
 	 * 
 	 * Returns the upper gamma function of a number.
 	 * 
-	 * @todo Depends on lower gamma, which is not yet implemented.
 	 * @param float $s Lower bound of integration
 	 * @param float $x Argument to the upper gamma function
 	 * @return float The upper gamma of $x
