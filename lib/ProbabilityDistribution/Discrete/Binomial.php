@@ -36,7 +36,7 @@ class Binomial extends DiscreteDistribution {
 	private $n;
 	private $p;
 	
-	function __construct($p = 0, $n = 1) {
+	function __construct($p = 0.5, $n = 1) {
 		$this->p = $p;
 		$this->n = $n;
 	}
@@ -49,7 +49,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The random variate.
 	 */
 	public function rvs() {
-		return self::rvs($this->p, $this->n);
+		return self::getRvs($this->p, $this->n);
 	}
 	
 	/**
@@ -59,7 +59,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The probability
 	 */
 	public function pmf($x) {
-		return self::pmf($x, $this->p, $this->n);
+		return self::getPmf($x, $this->p, $this->n);
 	}
 	
 	/**
@@ -69,7 +69,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The probability
 	 */
 	public function cdf($x) {
-		return self::cdf($x, $this->p, $this->n);
+		return self::getCdf($x, $this->p, $this->n);
 	}
 	
 	/**
@@ -79,7 +79,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The probability
 	 */
 	public function sf($x) {
-		return self::sf($x, $this->p, $this->n);
+		return self::getSf($x, $this->p, $this->n);
 	}
 	
 	/**
@@ -89,7 +89,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The value that gives a cdf of $x
 	 */
 	public function ppf($x) {
-		return self::ppf($x, $this->p, $this->n);
+		return self::getPpf($x, $this->p, $this->n);
 	}
 	
 	/**
@@ -99,7 +99,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return float The value that gives an sf of $x
 	 */
 	public function isf($x) {
-		return self::isf($x, $this->p, $this->n);
+		return self::getIsf($x, $this->p, $this->n);
 	}
 	
 	/**
@@ -109,7 +109,7 @@ class Binomial extends DiscreteDistribution {
 	 * @return type array A dictionary containing the first four moments of the distribution
 	 */
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->p, $this->n);
+		return self::getStats($moments, $this->p, $this->n);
 	}
 
 	//These represent the calculation engine of the class.
@@ -121,10 +121,10 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials.
 	 * @return float The random variate.
 	 */
-	static function rvs($p = 0.5, $n = 1) {
+	public static function getRvs($p = 0.5, $n = 1) {
 		$successes = 0;
 
-		for ($i = 0; $i < $n; $i++;) {
+		for ($i = 0; $i < $n; $i++) {
 			if (self::BernoulliTrial($p)) $successes++;
 		}
 
@@ -139,8 +139,8 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return float The probability
 	 */
-	static function pmf($x, $p = 0.5, $n = 1) {
-		return Stats::combinations($n, $x)*pow($p, $x)*pow(1 - p, $n - $x);
+	public static function getPmf($x, $p = 0.5, $n = 1) {
+		return Stats::combinations($n, $x)*pow($p, $x)*pow(1 - $p, $n - $x);
 	}
 	
 	/**
@@ -151,10 +151,10 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return float The probability
 	 */
-	static function cdf($x, $p = 0.5, $n = 1) {
+	public static function getCdf($x, $p = 0.5, $n = 1) {
 		$sum = 0.0;
 		for ($count = 0; $count <= $x; $count++) {
-			$sum += self::pmf($count, $p, $n);
+			$sum += self::getPmf($count, $p, $n);
 		}
 		return $sum;
 	}
@@ -167,8 +167,8 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return float The probability
 	 */
-	static function sf($x, $p = 0.5, $n = 1) {
-		return 1.0 - self::cdf($x, $p, $n);
+	public static function getSf($x, $p = 0.5, $n = 1) {
+		return 1.0 - self::getCdf($x, $p, $n);
 	}
 	
 	/**
@@ -179,7 +179,7 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return float The value that gives a cdf of $x
 	 */
-	static function ppf($x, $p = 0.5, $n = 1) {
+	public static function getPpf($x, $p = 0.5, $n = 1) {
 		return 0; //TODO: Binomial PPF
 	}
 	
@@ -191,8 +191,8 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return float The value that gives an sf of $x
 	 */
-	static function isf($x, $p = 0.5, $n = 1) {
-		return self::ppf(1.0 - $x, $p, $n);
+	public static function getIsf($x, $p = 0.5, $n = 1) {
+		return self::getPpf(1.0 - $x, $p, $n);
 	}
 	
 	/**
@@ -203,14 +203,14 @@ class Binomial extends DiscreteDistribution {
 	 * @param int $n The number of trials
 	 * @return type array A dictionary containing the first four moments of the distribution
 	 */
-	static function stats($moments = 'mv', $p = 0.5, $n = 1) {
-		$moments = array();
+	public static function getStats($moments = 'mv', $p = 0.5, $n = 1) {
+		$return = array();
+
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $n*$p;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $n*$p*(1-$p);
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = (1-2*$p)/sqrt($n*$p*(1-$p));
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = (1 - 6*$p*(1 - $p))/($n*$p*(1-$p));
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $n*$p;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = $n*$p*(1-$p);
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = (1-2*$p)/sqrt($n*$p*(1-$p));
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = (1 - 6*$p*(1 - $p))/($n*$p*(1-$p));
-		
-		return $moments;
+		return $return;
 	}
 }
