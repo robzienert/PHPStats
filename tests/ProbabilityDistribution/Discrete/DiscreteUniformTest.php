@@ -14,32 +14,32 @@ class DiscreteUniformTest extends CustomPHPUnit {
 	}
 
 	public function test_pmf() {
-		$this->assertEquals(, $this->testObject->pmf);
+		$this->assertEquals(0.1, $this->testObject->pmf(4));
 	}
 
 	public function test_cdf() {
-		$this->assertEquals(, $this->testObject->cdf);
+		$this->assertEquals(0.4, $this->testObject->cdf(4));
 	}
 
 	public function test_sf() {
-		$this->assertEquals(, $this->testObject->sf);
+		$this->assertEquals(0.6, $this->testObject->sf(4));
 	}
 
 	public function test_ppf() {
-		$this->assertEquals(, $this->testObject->ppf);
+		$this->assertEquals(2, $this->testObject->ppf(0.2));
 	}
 
 	public function test_isf() {
-		$this->assertEquals(, $this->testObject->isf);
+		$this->assertEquals(9, $this->testObject->isf(0.2));
 	}
 
 	public function test_stats() {
 		$summaryStats = $this->testObject->stats('mvsk');
 
-		$this->assertEquals(, $summaryStats['mean']);
-		$this->assertEquals(, $summaryStats['variance']);
-		$this->assertEquals(, $summaryStats['skew']);
-		$this->assertEquals(, $summaryStats['kurtosis']);
+		$this->assertEquals(5.5, $summaryStats['mean']);
+		$this->assertEquals(8.33333, round($summaryStats['variance'], 5));
+		$this->assertEquals(0, $summaryStats['skew']);
+		//$this->assertEquals(, $summaryStats['kurtosis']);
 	}
 }
 ?>

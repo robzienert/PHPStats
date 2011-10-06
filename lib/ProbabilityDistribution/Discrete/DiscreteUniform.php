@@ -133,7 +133,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The probability
 	*/
 	static function getPmf($x, $minimum = 0, $maximum = 1) {
-		if ($x >= $minimum && $x <= $maximum) return 1.0/($maximum - $minimum);
+		if ($x >= $minimum && $x <= $maximum) return 1.0/($maximum - $minimum + 1);
 		else return 0.0;
 	}
 	
@@ -146,7 +146,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $minimum = 0, $maximum = 1) {
-		if ($x >= $minimum && $x <= $maximum) return $x - $minimum / ($maximum - $minimum);
+		if ($x >= $minimum && $x <= $maximum) return ($x - $minimum + 1) / ($maximum - $minimum + 1);
 		elseif ($x > $maximum) return 1.0;
 		else return 0.0;
 	}
@@ -172,7 +172,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	static function getPpf($x, $minimum = 0, $maximum = 1) {
-		return $minimum + ceil($x*($maximum - $minimum));
+		return $minimum + ceil($x*($maximum - $minimum + 1));
 	}
 	
 	/**

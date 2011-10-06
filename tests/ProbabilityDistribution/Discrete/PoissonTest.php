@@ -6,7 +6,7 @@ class PoissonTest extends CustomPHPUnit {
 	private $testObject;
 
 	public function __construct() {
-		$this->testObject = new Poisson(0.5, 5);
+		$this->testObject = new Poisson(5);
 	}
 
 	public function test_rvs() {
