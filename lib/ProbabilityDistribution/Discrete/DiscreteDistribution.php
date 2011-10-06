@@ -23,7 +23,7 @@
  * @package PHPStat
  */
  
-require_once('..'.DIRECTORY_SEPARATOR.'ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
 
 /**
  * DiscreteDistribution class
@@ -38,11 +38,5 @@ abstract class DiscreteDistribution extends ProbabilityDistribution {
 		$standardVariate = ((float)mt_rand())/mt_getrandmax();
 		return ($standardVariate <= $p)?1:0;
 	}
-
-	//Additional Wrapper Functions
-	abstract public function pmf();
-
-	//Additional Calculation Functions
-	abstract static function pmf();
 }
 ?>
