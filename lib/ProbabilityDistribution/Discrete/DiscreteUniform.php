@@ -172,7 +172,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	static function getPpf($x, $minimum = 0, $maximum = 1) {
-		return $minimum + ceil($x*($maximum - $minimum + 1));
+		return ceil($x*($maximum - $minimum + 1));
 	}
 	
 	/**
@@ -184,7 +184,7 @@ class DiscreteUniform extends DiscreteDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	static function getIsf($x, $minimum = 0, $maximum = 1) {
-		return self::getPpf(1.0 - $x, $minimum, $maximum);
+		return self::getPpf(1.0 - $x, $minimum, $maximum)+1;
 	}
 	
 	/**

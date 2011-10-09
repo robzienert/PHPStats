@@ -39,7 +39,7 @@ class DiscreteUniformTest extends CustomPHPUnit {
 		$this->assertEquals(5.5, $summaryStats['mean']);
 		$this->assertEquals(8.33333, round($summaryStats['variance'], 5));
 		$this->assertEquals(0, $summaryStats['skew']);
-		//$this->assertEquals(, $summaryStats['kurtosis']);
+		$this->assertEquals(-1.22424, round($summaryStats['kurtosis'], 5));
 	}
 }
 ?>
