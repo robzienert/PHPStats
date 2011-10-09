@@ -232,7 +232,7 @@ class Hypergeometric extends DiscreteDistribution {
 		if (strpos($moments, 'm') !== FALSE) $return['mean'] = ($n*$m)/$L;
 		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $n*($m/$L)*(($L - $m)/$L)*(($L - $n)/($L - 1));
 		if (strpos($moments, 's') !== FALSE) $return['skew'] = (($L - 2*$m)*pow($L - 1, .5)*($L - 2*$n))/(pow($n*$m*($L - $m)*($L - $n), .5)*($L - 2));
-		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = ((($L - 1)*pow($L, 2)*($L*($L + 1) - 6*$m*($L - $m) - 6*$n*($L - $m)))+(6*$m*$n*($L - $m)*($L - $n)*(5*$L - 6)))/($n*$m*($L - $m)*($L - $n)*($L - 2)*($L - 3));
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = (($L - 1)*pow($L, 2)*($L*($L + 1) - 6*$m*($L - $m) - 6*$n*($L - $n)) +6*$m*$n*($L - $m)*($L - $n)*(5*$L - 6))/($n*$m*($L - $m)*($L - $n)*($L - 2)*($L - 3));
 		
 		return $return;
 	}
