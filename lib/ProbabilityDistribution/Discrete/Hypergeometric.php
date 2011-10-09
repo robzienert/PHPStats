@@ -188,7 +188,7 @@ class Hypergeometric extends DiscreteDistribution {
 		@return float The probability
 	*/
 	static function getSf($x, $L = 1, $m = 1, $n = 1) {
-		return 1.0 - self::getCdf($x, $minimum, $maximum);
+		return 1.0 - self::getCdf($x, $L, $m, $n);
 	}
 	
 	/**
@@ -214,7 +214,7 @@ class Hypergeometric extends DiscreteDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	static function getIsf($x, $L = 1, $m = 1, $n = 1) {
-		return self::getPpf(1.0 - $x, $minimum, $maximum);
+		return self::getPpf(1.0 - $x, $L, $m, $n);
 	}
 	
 	/**
@@ -230,7 +230,7 @@ class Hypergeometric extends DiscreteDistribution {
 		$return = array();
 		
 		if (strpos($moments, 'm') !== FALSE) $return['mean'] = ($n*$m)/$L;
-		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $N*($m/$L)*(($L - $m)/$L)*(($L - $n)/($L - 1))
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $n*($m/$L)*(($L - $m)/$L)*(($L - $n)/($L - 1));
 		if (strpos($moments, 's') !== FALSE) $return['skew'] = (($L - 2*$m)*pow($L - 1, .5)*($L - 2*$n))/(pow($n*$m*($L - $m)*($L - $n), .5)*($L - 2));
 		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = ((($L - 1)*pow($L, 2)*($L*($L + 1) - 6*$m*($L - $m) - 6*$n*($L - $m)))+(6*$m*$n*($L - $m)*($L - $n)*(5*$L - 6)))/($n*$m*($L - $m)*($L - $n)*($L - 2)*($L - 3));
 		
