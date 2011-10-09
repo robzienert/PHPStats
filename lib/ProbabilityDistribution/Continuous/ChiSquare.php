@@ -16,7 +16,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->k);
+		return self::getRvs($this->k);
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::pdf($x, $this->k);
+		return self::getPdf($x, $this->k);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->k);
+		return self::getCdf($x, $this->k);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->k);
+		return self::getSf($x, $this->k);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->k);
+		return self::getPpf($x, $this->k);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->k);
+		return self::getIsf($x, $this->k);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class ChiSquare extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->k);
+		return self::getStats($moments, $this->k);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -87,7 +87,7 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The random variate.
 	*/
-	static function rvs($k = 1) {
+	static function getRvs($k = 1) {
 		$k /= 2;
 		$floork = floor($k);
 		$fractionalk = $k - $floork;
@@ -127,7 +127,7 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The probability
 	*/
-	static function pdf($x, $k = 1) {
+	static function getPdf($x, $k = 1) {
 		return pow($x, $k/2.0 - 1)*exp(-$x/2.0)/(Stats::gamma($k/2.0)*pow(2, $k/2.0));
 	}
 	
@@ -138,7 +138,7 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The probability
 	*/
-	static function cdf($x, $k = 1) {
+	static function getCdf($x, $k = 1) {
 		return Stats::lowerGamma($k/2.0, $x/2)/Stats::gamma($k/2.0);
 	}
 	
@@ -149,8 +149,8 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The probability
 	*/
-	static function sf($x, $k = 1) {
-		return 1.0 - self::cdf($x, $k, $theta);
+	static function getSf($x, $k = 1) {
+		return 1.0 - self::getCdf($x, $k, $theta);
 	}
 	
 	/**
@@ -160,7 +160,7 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $k = 1) {
+	static function getPpf($x, $k = 1) {
 		return 0; //TODO: ChiSquare PPF
 	}
 	
@@ -171,8 +171,8 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $k = 1) {
-		return self::ppf(1.0 - $x, $k);
+	static function getIsf($x, $k = 1) {
+		return self::getPpf(1.0 - $x, $k);
 	}
 	
 	/**
@@ -182,7 +182,7 @@ class ChiSquare extends ContinuousDistribution {
 		@param float $k Shape parameter
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $k = 1) {
+	static function getStats($moments = 'mv', $k = 1) {
 		$moments = array();
 		
 		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $k;

@@ -16,7 +16,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->lambda);
+		return self::getRvs($this->lambda);
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::pdf($x, $this->lambda);
+		return self::gerPdf($x, $this->lambda);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->lambda);
+		return self::getCdf($x, $this->lambda);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->lambda);
+		return self::getSf($x, $this->lambda);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->lambda);
+		return self::getPpf($x, $this->lambda);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ class Exponential extends ContinuousDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->lambda);
+		return self::getIsf($x, $this->lambda);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class Exponential extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->lambda);
+		return self::getStats($moments, $this->lambda);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -87,7 +87,7 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The random variate.
 	*/
-	static function rvs($lambda = 1) {
+	static function getRvs($lambda = 1) {
 		return -log(self::randFloat())/$lambda;
 	}
 	
@@ -98,7 +98,7 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The probability
 	*/
-	static function pdf($x, $lambda = 1) {
+	static function getPdf($x, $lambda = 1) {
 		return $lambda*exp(-$lambda*$x);
 	}
 	
@@ -109,7 +109,7 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The probability
 	*/
-	static function cdf($x, $lambda = 1) {
+	static function getCdf($x, $lambda = 1) {
 		return 1.0 - exp(-$lambda*$x);
 	}
 	
@@ -120,8 +120,8 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The probability
 	*/
-	static function sf($x, $lambda = 1) {
-		return 1.0 - self::cdf($x, $k, $theta);
+	static function getSf($x, $lambda = 1) {
+		return 1.0 - self::getCdf($x, $k, $theta);
 	}
 	
 	/**
@@ -131,7 +131,7 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $lambda = 1) {
+	static function getPpf($x, $lambda = 1) {
 		return 0; //TODO: Exponential PPF
 	}
 	
@@ -142,8 +142,8 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $lambda = 1) {
-		return self::ppf(1.0 - $x, $lambda);
+	static function getIsf($x, $lambda = 1) {
+		return self::getPpf(1.0 - $x, $lambda);
 	}
 	
 	/**
@@ -153,7 +153,7 @@ class Exponential extends ContinuousDistribution {
 		@param float $lambda Scale parameter
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $lambda = 1) {
+	static function getStats($moments = 'mv', $lambda = 1) {
 		$moments = array();
 		
 		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = 1.0/$lambda;

@@ -16,7 +16,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->df);
+		return self::getRvs($this->df);
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::pdf($x, $this->df);
+		return self::getPdf($x, $this->df);
 	}
 	
 	/**
@@ -36,7 +36,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->df);
+		return self::getCdf($x, $this->df);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->df);
+		return self::getSf($x, $this->df);
 	}
 	
 	/**
@@ -56,7 +56,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->df);
+		return self::getPpf($x, $this->df);
 	}
 	
 	/**
@@ -66,7 +66,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->df);
+		return self::getIsf($x, $this->df);
 	}
 	
 	/**
@@ -76,7 +76,7 @@ class StudentsT extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->df);
+		return self::getStats($moments, $this->df);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -87,7 +87,7 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The random variate.
 	*/
-	static function rvs($df = 1) {
+	static function getRvs($df = 1) {
 		return 0; //TODO: Student's T rvs
 	}
 	
@@ -98,7 +98,7 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The probability
 	*/
-	static function pdf($x, $df = 1) {
+	static function getPdf($x, $df = 1) {
 		return pow(1 + pow($x, 2)/$df, -($df + 1)/2)/(sqrt($df)*Stats::beta(.5, $df/2))
 	}
 	
@@ -109,7 +109,7 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The probability
 	*/
-	static function cdf($x, $df = 1) {
+	static function getCdf($x, $df = 1) {
 		$return = 1 - .5*Stats::regularizedIncompleteBeta($df/2, .5, $df/(pow($x, 2) + $df)); //Valid only for $x > 0
 		
 		if ($x < 0) return 1 - $return; //...but we can infer < 0 by way of symmetry.
@@ -124,8 +124,8 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The probability
 	*/
-	static function sf($x, $df = 1) {
-		return 1.0 - self::cdf($x, $minimum, $maximum);
+	static function getSf($x, $df = 1) {
+		return 1.0 - self::getCdf($x, $minimum, $maximum);
 	}
 	
 	/**
@@ -135,7 +135,7 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $df = 1) {
+	static function getPpf($x, $df = 1) {
 		return 0; //TODO: Student's T ppf
 	}
 	
@@ -146,8 +146,8 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $df = 1) {
-		return self::ppf(1.0 - $x, $minimum, $maximum);
+	static function getIsf($x, $df = 1) {
+		return self::getPpf(1.0 - $x, $minimum, $maximum);
 	}
 	
 	/**
@@ -157,7 +157,7 @@ class StudentsT extends ContinuousDistribution {
 		@param float $df The degrees of freedeom.  Default 1
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $df = 1) {
+	static function getStats($moments = 'mv', $df = 1) {
 		$moments = array();
 		
 		if (strpos($moments, 'm') !== FALSE) {

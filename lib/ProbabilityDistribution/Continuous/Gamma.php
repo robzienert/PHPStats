@@ -18,7 +18,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->k, $this->theta);
+		return self::getRvs($this->k, $this->theta);
 	}
 	
 	/**
@@ -28,7 +28,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::pdf($x, $this->k, $this->theta);
+		return self::getPdf($x, $this->k, $this->theta);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->k, $this->theta);
+		return self::getCdf($x, $this->k, $this->theta);
 	}
 	
 	/**
@@ -48,7 +48,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->k, $this->theta);
+		return self::getSf($x, $this->k, $this->theta);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->k, $this->theta);
+		return self::getPpf($x, $this->k, $this->theta);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class Gamma extends ContinuousDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->k, $this->theta);
+		return self::getIsf($x, $this->k, $this->theta);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class Gamma extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->k, $this->theta);
+		return self::getStats($moments, $this->k, $this->theta);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -90,7 +90,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The random variate.
 	*/
-	static function rvs($k = 1, $theta = 1) {
+	static function getRvs($k = 1, $theta = 1) {
 		$floork = floor($k);
 		$fractionalk = $k - $floork;
 
@@ -130,7 +130,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The probability
 	*/
-	static function pdf($x, $k = 1, $theta = 1) {
+	static function getPdf($x, $k = 1, $theta = 1) {
 		return pow($x, $k - 1)*exp(-$x/$theta)/(Stats::gamma($k)*pow($theta, $k));
 	}
 	
@@ -142,7 +142,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The probability
 	*/
-	static function cdf($x, $k = 1, $theta = 1) {
+	static function getCdf($x, $k = 1, $theta = 1) {
 		return Stats::lowerGamma($k, $x/$theta)/Stats::gamma($k);
 	}
 	
@@ -154,8 +154,8 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The probability
 	*/
-	static function sf($x, $k = 1, $theta = 1) {
-		return 1.0 - self::cdf($x, $k, $theta);
+	static function getSf($x, $k = 1, $theta = 1) {
+		return 1.0 - self::getCdf($x, $k, $theta);
 	}
 	
 	/**
@@ -166,7 +166,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $k = 1, $theta = 1) {
+	static function getPpf($x, $k = 1, $theta = 1) {
 		return 0; //TODO: Gamma PPF
 	}
 	
@@ -178,7 +178,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $k = 1, $theta = 1) {
+	static function getIsf($x, $k = 1, $theta = 1) {
 		return self::ppf(1.0 - $x, $k, $theta);
 	}
 	
@@ -190,7 +190,7 @@ class Gamma extends ContinuousDistribution {
 		@param float $theta Scale parameter
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $k = 1, $theta = 1) {
+	static function getStats($moments = 'mv', $k = 1, $theta = 1) {
 		$moments = array();
 		
 		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $k*$theta;

@@ -18,7 +18,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	public function rvs() {
-		return self::rvs($this->minimum, $this->alpha);
+		return self::getRvs($this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -28,7 +28,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::pdf($x, $this->minimum, $this->alpha);
+		return self::getPdf($x, $this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -38,7 +38,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function cdf($x) {
-		return self::cdf($x, $this->minimum, $this->alpha);
+		return self::getCdf($x, $this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -48,7 +48,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The probability
 	*/
 	public function sf($x) {
-		return self::sf($x, $this->minimum, $this->alpha);
+		return self::getSf($x, $this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -58,7 +58,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The value that gives a cdf of $x
 	*/
 	public function ppf($x) {
-		return self::ppf($x, $this->minimum, $this->alpha);
+		return self::getPpf($x, $this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The value that gives an sf of $x
 	*/
 	public function isf($x) {
-		return self::isf($x, $this->minimum, $this->alpha);
+		return self::getIsf($x, $this->minimum, $this->alpha);
 	}
 	
 	/**
@@ -78,7 +78,7 @@ class Pareto extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	public function stats($moments = 'mv') {
-		return self::stats($moments, $this->minimum, $this->alpha);
+		return self::getStats($moments, $this->minimum, $this->alpha);
 	}
 	
 	//These represent the calculation engine of the class.
@@ -90,7 +90,7 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The random variate.
 	*/
-	static function rvs($minimum = 1.0, $alpha = 1.0) {
+	static function getRvs($minimum = 1.0, $alpha = 1.0) {
 		return $minimum/pow(self::randFloat(), 1/$alpha)
 	}
 	
@@ -102,7 +102,7 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The probability
 	*/
-	static function pdf($x, $minimum = 1.0, $alpha = 1.0) {
+	static function getPdf($x, $minimum = 1.0, $alpha = 1.0) {
 		if ($x >= $minimum) return pow($minimum/$x, $alpha);
 		else return 0.0;
 	}
@@ -115,7 +115,7 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The probability
 	*/
-	static function cdf($x, $minimum = 1.0, $alpha = 1.0) {
+	static function getCdf($x, $minimum = 1.0, $alpha = 1.0) {
 		if ($x >= $minimum) return 1 - pow($minimum/$x, $alpha);
 		else return 0.0;
 	}
@@ -128,8 +128,8 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The probability
 	*/
-	static function sf($x, $minimum = 1.0, $alpha = 1.0) {
-		return 1.0 - self::cdf($x, $minimum, $alpha);
+	static function getSf($x, $minimum = 1.0, $alpha = 1.0) {
+		return 1.0 - self::getCdf($x, $minimum, $alpha);
 	}
 	
 	/**
@@ -140,7 +140,7 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The value that gives a cdf of $x
 	*/
-	static function ppf($x, $minimum = 1.0, $alpha = 1.0) {
+	static function getPpf($x, $minimum = 1.0, $alpha = 1.0) {
 		return 0; //TODO: Pareto ppf
 	}
 	
@@ -152,8 +152,8 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return float The value that gives an sf of $x
 	*/
-	static function isf($x, $minimum = 1.0, $alpha = 1.0) {
-		return self::ppf(1.0 - $x, $minimum, $alpha);
+	static function getIsf($x, $minimum = 1.0, $alpha = 1.0) {
+		return self::getPpf(1.0 - $x, $minimum, $alpha);
 	}
 	
 	/**
@@ -164,7 +164,7 @@ class Pareto extends ContinuousDistribution {
 		@param float $alpha The shape parameter. Default 1.0
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
-	static function stats($moments = 'mv', $minimum = 1.0, $alpha = 1.0) {
+	static function getStats($moments = 'mv', $minimum = 1.0, $alpha = 1.0) {
 		$moments = array();
 		
 		if (strpos($moments, 'm') !== FALSE) {
