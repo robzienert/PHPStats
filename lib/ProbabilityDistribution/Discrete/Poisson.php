@@ -142,7 +142,7 @@ class Poisson extends DiscreteDistribution {
 		@return float The probability
 	*/
 	static function getPmf($x, $lambda = 1) {
-		return exp(-$lamda)*pow($lamda, $x)/Stats::factorial($x);
+		return exp(-$lambda)*pow($lambda, $x)/Stats::factorial($x);
 	}
 	
 	/**
@@ -155,7 +155,7 @@ class Poisson extends DiscreteDistribution {
 	static function getCdf($x, $lambda = 1) {
 		$sum = 0.0;
 		for ($count = 0; $count <= $x; $count++) {
-			$sum += self::getPmf($lambda, $count);
+			$sum += self::getPmf($count, $lambda);
 		}
 		return $sum;
 	}
