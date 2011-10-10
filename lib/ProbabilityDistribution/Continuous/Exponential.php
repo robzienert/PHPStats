@@ -154,14 +154,14 @@ class Exponential extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $lambda = 1) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = 1.0/$lambda;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = pow($lambda, -2);
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = 2;
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = 6;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = 1.0/$lambda;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = pow($lambda, -2);
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = 2;
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = 6;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

@@ -6,18 +6,18 @@
 
 $currentFile = FALSE;
 
-$discreteDirectory = opendir('Discrete');
+$discreteDirectory = opendir('lib/ProbabilityDistribution/Discrete');
 
-while ($currentFile = readdir($discreteDirectory) {
-	if (strpos($currentFile, '.php') !== FALSE) require_once('Discrete'.DIRECTORY_SEPARATOR.$currentFile)
+while (($currentFile = readdir($discreteDirectory)) !== FALSE) {
+	if (strpos($currentFile, '.php') !== FALSE) require_once('lib/ProbabilityDistribution/Discrete/'.$currentFile);
 }
 
 closedir($discreteDirectory);
 
-$continuousDirectory = opendir('Discrete');
+$continuousDirectory = opendir('lib/ProbabilityDistribution/Continuous');
 
-while ($currentFile = readdir($continuousDirectory) {
-	if (strpos($currentFile, '.php') !== FALSE) require_once('Continuous'.DIRECTORY_SEPARATOR.$currentFile)
+while (($currentFile = readdir($continuousDirectory)) !== FALSE) {
+	if (strpos($currentFile, '.php') !== FALSE) require_once('lib/ProbabilityDistribution/Continuous/'.$currentFile);
 }
 
 closedir($continuousDirectory);

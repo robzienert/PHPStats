@@ -99,7 +99,7 @@ class StudentsT extends ContinuousDistribution {
 		@return float The probability
 	*/
 	static function getPdf($x, $df = 1) {
-		return pow(1 + pow($x, 2)/$df, -($df + 1)/2)/(sqrt($df)*Stats::beta(.5, $df/2))
+		return pow(1 + pow($x, 2)/$df, -($df + 1)/2)/(sqrt($df)*Stats::beta(.5, $df/2));
 	}
 	
 	/**
@@ -158,27 +158,27 @@ class StudentsT extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $df = 1) {
-		$moments = array();
+		$return = array();
 		
 		if (strpos($moments, 'm') !== FALSE) {
-			if ($df > 1) $moments['mean'] = 0;
-			else $moments['mean'] = NAN;
+			if ($df > 1) $return['mean'] = 0;
+			else $return['mean'] = NAN;
 		}
 		if (strpos($moments, 'v') !== FALSE) {
-			if ($df > 2) $moments['variance'] = $df / ($df - 2);
-			elseif ($df > 1 && $df <= 2) $moments['variance'] = INF;
-			else $moments['variance'] = NAN;
+			if ($df > 2) $return['variance'] = $df / ($df - 2);
+			elseif ($df > 1 && $df <= 2) $return['variance'] = INF;
+			else $return['variance'] = NAN;
 		}
 		if (strpos($moments, 's') !== FALSE) {
-			if ($df > 3) $moments['skew'] = 0;
-			else $moments['skew'] = NAN;
+			if ($df > 3) $return['skew'] = 0;
+			else $return['skew'] = NAN;
 		}
 		if (strpos($moments, 'k') !== FALSE) {
-			if ($df > 4) $moments['kurtosis'] = 6/($df - 4));
-			else $moments['kurtosis'] = NAN;
+			if ($df > 4) $return['kurtosis'] = 6/($df - 4);
+			else $return['kurtosis'] = NAN;
 		}
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

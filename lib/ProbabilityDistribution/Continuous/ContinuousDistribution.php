@@ -1,5 +1,5 @@
 <?php
-require_once('..'.DIRECTORY_SEPARATOR.'ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
 
 abstract class ContinuousDistribution extends ProbabilityDistribution {
 	

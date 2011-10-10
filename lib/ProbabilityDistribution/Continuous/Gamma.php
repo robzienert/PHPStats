@@ -101,7 +101,7 @@ class Gamma extends ContinuousDistribution {
 
 		$m = 0;
 		$xi = 0;
-		$V = array(0)
+		$V = array(0);
 		do {
 			$m++;
 
@@ -191,14 +191,14 @@ class Gamma extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $k = 1, $theta = 1) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $k*$theta;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = $k*pow($theta, 2);
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = 2/sqrt($k);
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = 6/$k;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $k*$theta;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $k*pow($theta, 2);
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = 2/sqrt($k);
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = 6/$k;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

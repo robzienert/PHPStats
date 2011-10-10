@@ -91,7 +91,7 @@ class Pareto extends ContinuousDistribution {
 		@return float The random variate.
 	*/
 	static function getRvs($minimum = 1.0, $alpha = 1.0) {
-		return $minimum/pow(self::randFloat(), 1/$alpha)
+		return $minimum/pow(self::randFloat(), 1/$alpha);
 	}
 	
 	/**
@@ -165,26 +165,26 @@ class Pareto extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $minimum = 1.0, $alpha = 1.0) {
-		$moments = array();
+		$return = array();
 		
 		if (strpos($moments, 'm') !== FALSE) {
-			if ($alpha > 1) $moments['mean'] = ($alpha*$minimum)/($alpha - 1);
-			else $moments['mean'] = NAN;
+			if ($alpha > 1) $return['mean'] = ($alpha*$minimum)/($alpha - 1);
+			else $return['mean'] = NAN;
 		}
 		if (strpos($moments, 'v') !== FALSE) {
-			if ($alpha > 2) $moments['variance'] = (pow($minimum, 2)*$alpha)/(pow($alpha - 1, 2)*($alpha - 2))
-			else $moments['variance'] = NAN;
+			if ($alpha > 2) $return['variance'] = (pow($minimum, 2)*$alpha)/(pow($alpha - 1, 2)*($alpha - 2));
+			else $return['variance'] = NAN;
 		}
 		if (strpos($moments, 's') !== FALSE) {
-			if ($alpha > 3) $moments['skew'] = ((2 + 2*$alpha)/($alpha - 3))*sqrt(($alpha - 2)/$alpha);
-			else $moments['skew'] = NAN;
+			if ($alpha > 3) $return['skew'] = ((2 + 2*$alpha)/($alpha - 3))*sqrt(($alpha - 2)/$alpha);
+			else $return['skew'] = NAN;
 		}
 		if (strpos($moments, 'k') !== FALSE) {
-			if ($alpha > 4) $moments['kurtosis'] = (6*(pow($alpha, 3) + pow($alpha, 2) - 6*$alpha - 2))/($alpha*($alpha - 3)*($alpha - 4));
-			else $moments['kurtosis'] = NAN;
+			if ($alpha > 4) $return['kurtosis'] = (6*(pow($alpha, 3) + pow($alpha, 2) - 6*$alpha - 2))/($alpha*($alpha - 3)*($alpha - 4));
+			else $return['kurtosis'] = NAN;
 		}
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

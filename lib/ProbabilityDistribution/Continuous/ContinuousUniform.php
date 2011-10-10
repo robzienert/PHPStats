@@ -166,14 +166,14 @@ class ContinuousUniform extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $minimum = 0.0, $maximum = 1.0) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = 0.5*($maximum + $minimum);
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = (1.0/12)*pow(($maximum - $minimum), 2);
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = 0;
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = -1.2;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = 0.5*($maximum + $minimum);
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = (1.0/12)*pow(($maximum - $minimum), 2);
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = 0;
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = -1.2;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

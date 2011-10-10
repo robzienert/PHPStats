@@ -165,14 +165,14 @@ class Normal extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $mu = 0.0, $variance = 1.0) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $mu;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = $variance;
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = 0;
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = 0;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $mu;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $variance;
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = 0;
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = 0;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

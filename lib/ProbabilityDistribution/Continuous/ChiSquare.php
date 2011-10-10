@@ -99,7 +99,7 @@ class ChiSquare extends ContinuousDistribution {
 
 		$m = 0;
 		$xi = 0;
-		$V = array(0)
+		$V = array(0);
 		do {
 			$m++;
 
@@ -183,14 +183,14 @@ class ChiSquare extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $k = 1) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $k;
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = $k*2;
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = sqrt(8.0/$k);
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = 12.0/$k;
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $k;
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = $k*2;
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = sqrt(8.0/$k);
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = 12.0/$k;
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>

@@ -1,7 +1,7 @@
 <?php
 require_once('Gamma.php');
 
-class ContinuousUniform extends ContinuousDistribution {
+class Beta extends ContinuousDistribution {
 	private $alpha;
 	private $beta;
 	
@@ -90,7 +90,7 @@ class ContinuousUniform extends ContinuousDistribution {
 		@param float $beta The maximum parameter. Default 1.0
 		@return float The random variate.
 	*/
-	static function rvs($alpha = 1, $beta = 1) {
+	static function getRvs($alpha = 1, $beta = 1) {
 		$x = Gamma::getRvs($alpha, 1);
 		$y = Gamma::getRvs($beta, 1);
 		return $x/($x + $y);
@@ -166,14 +166,14 @@ class ContinuousUniform extends ContinuousDistribution {
 		@return type array A dictionary containing the first four moments of the distribution
 	*/
 	static function getStats($moments = 'mv', $alpha = 1, $beta = 1) {
-		$moments = array();
+		$return = array();
 		
-		if (strpos($moments, 'm') !== FALSE) $moments['mean'] = $alpha/($beta + $alpha);
-		if (strpos($moments, 'v') !== FALSE) $moments['variance'] = ($alpha*$beta)/(pow($alpha + $beta, 2)*($alpha + $beta + 1));
-		if (strpos($moments, 's') !== FALSE) $moments['skew'] = (2*($beta - $alpha)*sqrt($alpha + $beta + 1))/(($alpha + $beta + 2)*sqrt($alpha * $beta));
-		if (strpos($moments, 'k') !== FALSE) $moments['kurtosis'] = (6*(pow($alpha - $beta, 2)*($alpha + $beta + 1) - $alpha*$beta*($alpha + $beta + 2)))/($alpha*$beta*($alpha + $beta + 2)*($alpha + $beta + 3));
+		if (strpos($moments, 'm') !== FALSE) $return['mean'] = $alpha/($beta + $alpha);
+		if (strpos($moments, 'v') !== FALSE) $return['variance'] = ($alpha*$beta)/(pow($alpha + $beta, 2)*($alpha + $beta + 1));
+		if (strpos($moments, 's') !== FALSE) $return['skew'] = (2*($beta - $alpha)*sqrt($alpha + $beta + 1))/(($alpha + $beta + 2)*sqrt($alpha * $beta));
+		if (strpos($moments, 'k') !== FALSE) $return['kurtosis'] = (6*(pow($alpha - $beta, 2)*($alpha + $beta + 1) - $alpha*$beta*($alpha + $beta + 2)))/($alpha*$beta*($alpha + $beta + 2)*($alpha + $beta + 3));
 		
-		return $moments;
+		return $return;
 	}
 }
 ?>
