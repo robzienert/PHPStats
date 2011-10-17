@@ -20,8 +20,10 @@
  * 
  * LGPL Version 3
  *
- * @package PHPStat
+ * @package PHPStats
  */
+
+namespace PHPStats;
 
 require_once('lib/Stats.php');
 
