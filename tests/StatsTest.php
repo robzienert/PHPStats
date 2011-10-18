@@ -129,23 +129,23 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_lowerGamma() {
-		$this->assertEquals(0.16060, round(Stats::gamma(3, 1), 5));
-		$this->assertEquals(0.064665, round(Stats::gamma(3, 2), 5));
-		$this->assertEquals(0.91237, round(Stats::gamma(3, 2.5), 5));
-		$this->assertEquals(400.07089, round(Stats::gamma(10, 3), 5));
-		$this->assertEquals(2951.02827, round(Stats::gamma(10, 4), 5));
-		$this->assertEquals(11549.76544, round(Stats::gamma(10, 5), 5));
-		$this->assertEquals(30454.34729, round(Stats::gamma(10, 6), 5));
+		$this->assertEquals(0.16060, round(Stats::lowerGamma(3, 1), 5));
+		$this->assertEquals(0.64665, round(Stats::lowerGamma(3, 2), 5));
+		$this->assertEquals(0.91237, round(Stats::lowerGamma(3, 2.5), 5));
+		$this->assertEquals(400.07089, round(Stats::lowerGamma(10, 3), 5));
+		$this->assertEquals(2951.02827, round(Stats::lowerGamma(10, 4), 5));
+		$this->assertEquals(11549.76544, round(Stats::lowerGamma(10, 5), 5));
+		$this->assertEquals(30454.34729, round(Stats::lowerGamma(10, 6), 5));
 	}
 	
 	public function test_upperGamma() {
-		$this->assertEquals(1.83940, round(Stats::gamma(3, 1), 5));
-		$this->assertEquals(1.35335, round(Stats::gamma(3, 2), 5));
-		$this->assertEquals(1.08763, round(Stats::gamma(3, 2.5), 5));
-		$this->assertEquals(362479.92911, round(Stats::gamma(10, 3), 5));
-		$this->assertEquals(359928.97173, round(Stats::gamma(10, 4), 5));
-		$this->assertEquals(351330.23456, round(Stats::gamma(10, 5), 5));
-		$this->assertEquals(332425.65271, round(Stats::gamma(10, 6), 5));
+		$this->assertEquals(1.83939, round(Stats::upperGamma(3, 1), 5));
+		$this->assertEquals(1.35335, round(Stats::upperGamma(3, 2), 5));
+		$this->assertEquals(1.08762, round(Stats::upperGamma(3, 2.5), 5));
+		$this->assertEquals(362479.92676, round(Stats::upperGamma(10, 3), 5));
+		$this->assertEquals(359928.96939, round(Stats::upperGamma(10, 4), 5));
+		$this->assertEquals(351330.23222, round(Stats::upperGamma(10, 5), 5));
+		$this->assertEquals(332425.65036, round(Stats::upperGamma(10, 6), 5));
 	}
 
 	public function test_beta() {

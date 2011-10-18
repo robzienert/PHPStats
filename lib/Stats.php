@@ -380,7 +380,6 @@ class Stats {
 	 */
 	public static function regularizedIncompleteBeta($a, $b, $x) {
 		// Factors in front of the continued fraction.
-
 		if ($x < 0 || $x > 1) return false;
 		if ($x == 0 || $x == 1) $bt = 0;
 		else $bt = exp(self::gammaln($a + $b) - self::gammaln($a) - self::gammaln($b) + $a * log($x) + $b * log(1 - $x));
