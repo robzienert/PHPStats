@@ -295,6 +295,30 @@ class Stats {
 			return sqrt(2*M_PI/$x)*pow((1/M_E)*($x+(1/(12*$x - 1/(10*$x)))), $x);
 		}
 	}
+
+	/**
+	 * Log Gamma Function
+	 * 
+	 * Returns the natural logarithm of the gamma function.  Useful for
+	 * scaling.  From the jStat library.
+	 * 
+	 * @param float $x Argument to the gamma function
+	 * @return The natural log of gamma of $x
+	 */
+	public static function gammaln($x) {
+		$cof = array(
+			76.18009172947146, -86.50532032941677, 24.01409824083091,
+			-1.231739572450155, 0.1208650973866179e-2, -0.5395239384953e-5);
+		$xx = $x;
+		$y = $xx;
+		$tmp = $x + 5.5;
+		$tmp -= ($xx + 0.5) * log($tmp);
+		$ser = 1.000000000190015;
+
+		for($j = 0; $j < 6; $j++ ) $ser += $cof[$j] / ++$y;
+
+		return log( 2.5066282746310005 * $ser / $xx) - $tmp;
+	}
 	
 	/**
 	 * Incomplete (Lower) Gamma Function
@@ -347,97 +371,66 @@ class Stats {
 	/**
 	 * Calculates the regularized incomplete beta function.
 	 * 
-	 * Utilizes DiDonato and Jarnagin's method. (1966)
-	 * http://www.ams.org/journals/mcom/1967-21-100/S0025-5718-1967-0221730-X/S0025-5718-1967-0221730-X.pdf
-	 * As such, it is only valid for integer and half-integer values of $a and $b.
+	 * Implements the jStat method of calculating the incomplete beta,
 	 * 
-	 * @todo Incomplete implementation
 	 * @param float $a The alpha parameter
 	 * @param float $b The beta parameter
 	 * @param float $x Upper bound of integration
 	 * @return float The incomplete beta of $a and $b, up to $x
 	 */
 	public static function regularizedIncompleteBeta($a, $b, $x) {
-		$k = ceil($a);
-		$j = ceil($b);
+		// Factors in front of the continued fraction.
 
-		if ((self::is_integer($b) && !self::is_integer($a)) || (self::is_integer($a) && self::is_integer($b) && $a <= 60 && $j <= $k)) {
-			// Equation (14)
-			$N = ($k == 1)?1:min((($a - 1) * (1 - $x))/$x + 1, $j);
-			$log_aN = $a * log($x) + ($N - 1) * log(1 - $x) + log(self::gamma($a + $N - 1)) - log(self::gamma($a)) - log(self::gamma($N));
-			$aN = exp($log_aN);
+		if ($x < 0 || $x > 1) return false;
+		if ($x == 0 || $x == 1) $bt = 0;
+		else $bt = exp(self::gammaln($a + $b) - self::gammaln($a) - self::gammaln($b) + $a * log($x) + $b * log(1 - $x));
 
-			$sum = $aN;
-			$last_a = $aN;
-			for ($i = $N; $i < $j; $i++) {
-				$last_a = (($a + $i - 1)/$i) * (1 - $x) * $last_a;
-				$sum += $last_a;
-			}
+		if( $x < ( $a + 1 ) / ( $a + $b + 2 ) )
+			// Use continued fraction directly.
+			return $bt * self::betacf($x, $a, $b) / $a;
+		else
+			// else use continued fraction after making the symmetry transformation.
+			return 1 - $bt * self::betacf(1 - $x, $b, $a) / $b;
+	}
 
-			$last_a = $aN;
-			for ($i = $N; $i > 0; $i--) {
-				$last_a = (1/(($a + $i - 1)/$i)) * (1/(1 - $x)) * $last_a;
-				$sum += $last_a;
-			}
-			return $sum;
+	// Evaluates the continued fraction for incomplete beta function by modified Lentz's method.
+	private static function betacf($x, $a, $b) {
+		$fpmin = 1e-30;
+
+		// These q's will be used in factors that occur in the coefficients
+		$qab = $a + $b;
+		$qap = $a + 1;
+		$qam = $a - 1;
+		$c = 1;
+		$d = 1 - $qab * $x / $qap;
+		if(abs($d) < $fpmin ) $d = $fpmin;
+		$d = 1 / $d;
+		$h = $d;
+		for ($m = 1; $m <= 100; $m++) {
+			$m2 = 2 * $m;
+			$aa = $m * ($b - $m) * $x / (($qam + $m2) * ($a + $m2));
+
+			// One step (the even one) of the recurrence
+			$d = 1 + $aa * $d;
+			if(abs($d) < $fpmin ) $d = $fpmin;
+			$c = 1 + $aa / $c;
+			if(abs($c) < $fpmin ) $c = $fpmin;
+			$d = 1 / $d;
+			$h *= $d * $c;
+			$aa = -($a + $m) * ($qab + $m) * $x / (($a + $m2) * ($qap + $m2));
+
+			// Next step of the recurrence (the odd one)
+			$d = 1 + $aa * $d;
+			if(abs($d) < $fpmin) $d = $fpmin;
+			$c = 1 + $aa / $c;
+			if(abs($c) < $fpmin) $c = $fpmin;
+			$d = 1 / $d;
+			$del = $d * $c;
+			$h *= $del;
+
+			if(abs($del - 1.0) < 3e-7 ) break;
 		}
-		elseif ((self::is_integer($a) && $a <= 60 && !self::is_integer($b) || (self::is_integer($a) && $a <= 60 && self::is_integer($b) && $k < $j))) {
-			// Equation (16)
-			// Recurrence relations possibly wrong.  Paper wasn't clear on how to adapt (19) and (20) to (17)
-			$N = ($j == 1)?1:min((($b - 1) * (1 - $x))/$x + 1, $k);
-			$log_bN = $a * log($x) + ($N - 1) * log(1 - $x) + log(self::gamma($b + $N - 1)) - log(self::gamma($b)) - log(self::gamma($N));
-			$bN = exp($log_bN);
-
-			$sum = $bN;
-			$last_b = $bN;
-			for ($i = $N; $i < $k; $i++) {
-				$last_b = (($b + $i - 1)/$i) * (1 - $x) * $last_b;
-				$sum += $last_b;
-			}
-
-			$last_b = $bN;
-			for ($i = $N; $i > 0; $i--) {
-				$last_b = (1/(($b + $i - 1)/$i)) * (1/(1 - $x)) * $last_b;
-				$sum += $last_b;
-			}
-			return 1 - $sum;
-		}
-		elseif (!self::is_integer($a) && $a < 60 && !self::is_integer($b)) {
-			// Case B
-			$N = min((($a - 1) * (1 - $x))/$x + 0.5, $j - 1); // (30)
-			$log_cN = $a * log($x) + ($N - 1) * log(1 - $x) + log(self::gamma($a + $N - 1)) - log(self::gamma($a)) - log(self::gamma($N));
-			$cN = exp($log_cN);
-
-			$sum_c = $cN;
-			$last_c = $cN;
-			for ($i = $N; $i < $j - 1; $i++) {
-				$last_c = (($a + $i - 0.5)/$i + 0.5) * (1 - $x) * $last_c; // (28)
-				$sum_c += $last_c;
-			}
-
-			$last_c = $cN;
-			for ($i = $N; $i > 0; $i--) {
-				$last_c = (1/(($a + $i - 0.5)/$i + 0.5)) * (1/(1 - $x)) * $last_c; // (29)
-				$sum_c += $last_c;
-			}
-
-			$sum_d = 2/M_PI;
-			$last_d = $sum_d;
-			for ($i = 1; $i < $k - 1; $i++) {
-				$last_d = $x*((2*$i)/(2*$i + 1))*$last_d; // (27)
-				$sum_d += $last_d;
-			}
-
-			return (2/M_PI)*atan(pow($x/(1 - $x), 0.5)) - pow($x*(1 - $x), 0.5)*$sum_d + $sum_c;
-		}
-		elseif ($a > 60 && !self::is_integer($b)) {
-			// Case C
-			return 0; //TODO: Incomplete beta function case C.
-		}
-		else {
-			//Is this a possibility?  Shouldn't be, but let's collect some data if it is.
-			throw new Exception('else clause in Stats::regularizedIncompleteBeta hit. $a = '.$a.' and $b = '.$b.'<br />Please log the issue at https://github.com/mcordingley/PHPStats/issues if it is not there already.');
-		}
+		return $h;
 	}
 
 	/**
