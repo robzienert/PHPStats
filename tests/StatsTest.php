@@ -13,6 +13,7 @@ require_once('lib/Stats.php');
  * accurate to a higher degree would be most welcome.
  */
 
+use PHPStats\Stats as Stats;
 
 class StatsTest extends CustomPHPUnit {
 	private $datax;
@@ -156,11 +157,11 @@ class StatsTest extends CustomPHPUnit {
 	}
 
 	public function test_regularizedIncompleteBeta() {
-		$this->assertEquals(0.25, round(Stats::regularizedIncompleteBeta(1, 1, 0.25)), 5);
-		$this->assertEquals(0.43750, round(Stats::regularizedIncompleteBeta(1, 2, 0.25)), 5);
-		$this->assertEquals(0.06250, round(Stats::regularizedIncompleteBeta(2, 1, 0.25)), 5);
-		$this->assertEquals(0.73343, round(Stats::regularizedIncompleteBeta(5, 5, 0.6)), 5);
-		$this->assertEquals(0.94269, round(Stats::regularizedIncompleteBeta(5, 8, 0.6)), 5);
+		$this->assertEquals(0.25, round(Stats::regularizedIncompleteBeta(1, 1, 0.25), 5));
+		$this->assertEquals(0.43750, round(Stats::regularizedIncompleteBeta(1, 2, 0.25), 5));
+		$this->assertEquals(0.06250, round(Stats::regularizedIncompleteBeta(2, 1, 0.25), 5));
+		$this->assertEquals(0.73343, round(Stats::regularizedIncompleteBeta(5, 5, 0.6), 5));
+		$this->assertEquals(0.94269, round(Stats::regularizedIncompleteBeta(5, 8, 0.6), 5));
 	}
 
 	public function test_permutations() {
