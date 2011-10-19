@@ -22,10 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
- 
-require_once('DiscreteDistribution.php');
+namespace \PHPStats\ProbabilityDistribution;
 
 /**
  * Hypergeometric class
@@ -34,7 +31,7 @@ require_once('DiscreteDistribution.php');
  * selecting a certain number of objects of interest from a population with
  * some larger number of objects of interest.
  */
-class Hypergeometric extends DiscreteDistribution {
+class Hypergeometric extends ProbabilityDistribution {
 	private $L;
 	private $m;
 	private $n;

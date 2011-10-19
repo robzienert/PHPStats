@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
-require_once('Gamma.php');
-
-class Beta extends ContinuousDistribution {
+namespace \PHPStats\ProbabilityDistribution;
+//Depends on Gamma.php.  TODO: Refactor that out later.
+class Beta extends ProbabilityDistribution {
 	private $alpha;
 	private $beta;
 	

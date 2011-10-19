@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class Pareto extends ContinuousDistribution {
+class Pareto extends ProbabilityDistribution {
 	private $minimum;
 	private $alpha;
 	

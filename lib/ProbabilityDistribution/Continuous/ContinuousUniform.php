@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class ContinuousUniform extends ContinuousDistribution {
+class ContinuousUniform extends ProbabilityDistribution {
 	private $minimum;
 	private $maximum;
 	

@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class ChiSquare extends ContinuousDistribution {
+class ChiSquare extends ProbabilityDistribution {
 	private $k;
 	
 	function __construct($k = 1.0) {

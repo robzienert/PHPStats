@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class StudentsT extends ContinuousDistribution {
+class StudentsT extends ProbabilityDistribution {
 	private $df;
 	
 	function __construct($df = 1) {

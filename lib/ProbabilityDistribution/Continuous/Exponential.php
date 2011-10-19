@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class Exponential extends ContinuousDistribution {
+class Exponential extends ProbabilityDistribution {
 	private $lambda;
 	
 	function __construct($lambda = 1.0) {

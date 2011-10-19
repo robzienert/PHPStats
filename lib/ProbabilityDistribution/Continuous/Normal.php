@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class Normal extends ContinuousDistribution {
+class Normal extends ProbabilityDistribution {
 	private $mu;
 	private $variance;
 	

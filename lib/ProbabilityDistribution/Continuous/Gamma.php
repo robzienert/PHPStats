@@ -22,11 +22,9 @@
  *
  * @package PHPStats
  */
+namespace \PHPStats\ProbabilityDistribution;
 
-namespace PHPStats;
-require_once('ContinuousDistribution.php');
-
-class Gamma extends ContinuousDistribution {
+class Gamma extends ProbabilityDistribution {
 	private $k;
 	private $theta;
 	

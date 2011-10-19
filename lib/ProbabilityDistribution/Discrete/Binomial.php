@@ -22,10 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
- 
-require_once('DiscreteDistribution.php');
+namespace \PHPStats\ProbabilityDistribution;
 
 /**
  * Binomial class

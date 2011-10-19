@@ -22,10 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
- 
-require_once('DiscreteDistribution.php');
+namespace \PHPStats\ProbabilityDistribution;
 
 /**
  * DiscreteUniform class
@@ -33,7 +30,7 @@ require_once('DiscreteDistribution.php');
  * Represents the discrete uniform distribution, which is a range of equiprobable
  * outcomes, such as rolling a single die.
  */
-class DiscreteUniform extends DiscreteDistribution {
+class DiscreteUniform extends ProbabilityDistribution {
 	private $minimum;
 	private $maximum;
 	

@@ -22,10 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
- 
-require_once('DiscreteDistribution.php');
+namespace \PHPStats\ProbabilityDistribution;
 
 /**
  * Poisson class
@@ -35,7 +32,7 @@ require_once('DiscreteDistribution.php');
  * fixed interval.  
  * For more information, see: http://en.wikipedia.org/wiki/Poisson_distribution
  */
-class Poisson extends DiscreteDistribution {
+class Poisson extends ProbabilityDistribution {
 	private $lambda;
 
 	function __construct($lambda) {
