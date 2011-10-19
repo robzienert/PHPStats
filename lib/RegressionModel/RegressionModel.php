@@ -22,10 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
-
-require_once('lib/Stats.php');
+namespace \PHPStats\RegressionModel;
 
 /**
  * RegressionModel class
