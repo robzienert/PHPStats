@@ -31,7 +31,7 @@ namespace \PHPStats\ProbabilityDistribution;
  * number of successes in a larger number of Bernoulli trials.
  * For more information, see: http://en.wikipedia.org/wiki/Binomial_distribution
  */
-class Binomial extends DiscreteDistribution {
+class Binomial extends ProbabilityDistribution {
 	private $n;
 	private $p;
 	
