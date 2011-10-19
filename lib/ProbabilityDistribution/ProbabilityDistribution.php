@@ -22,11 +22,7 @@
  *
  * @package PHPStats
  */
-
-namespace PHPStats;
- 
-require_once('lib/Stats.php');
-
+namespace \PHPStats\ProbabilityDistribution;
 /**
  * ProbabilityDistribution class
  * 
@@ -37,6 +33,11 @@ abstract class ProbabilityDistribution {
 	//Internal Utility Functions
 	protected static function randFloat() {
 		return ((float)mt_rand())/mt_getrandmax(); //A number between 0 and 1.
+	}
+
+	protected static function BernoulliTrial($p = 0.5) {
+		$standardVariate = ((float)mt_rand())/mt_getrandmax();
+		return ($standardVariate <= $p)?1:0;
 	}
 }
 ?>
