@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/Stats.php');
+require_once('lib/RegressionModel/RegressionModel.php');
 require_once('lib/RegressionModel/LogarithmicRegression.php');
 
-class LogarithmicRegressionTest extends CustomPHPUnit {
+use \PHPStats\RegressionModel\LogarithmicRegression as LogarithmicRegression;
+
+class LogarithmicRegressionTest extends PHPUnit_Framework_TestCase {
 	private $regressionModel;
 
 	public function __construct() {

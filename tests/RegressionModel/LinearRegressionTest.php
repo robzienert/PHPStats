@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/Stats.php');
+require_once('lib/RegressionModel/RegressionModel.php');
 require_once('lib/RegressionModel/LinearRegression.php');
 
-class LinearRegressionTest extends CustomPHPUnit {
+use \PHPStats\RegressionModel\LinearRegression as LinearRegression;
+
+class LinearRegressionTest extends PHPUnit_Framework_TestCase {
 	private $regressionModel;
 
 	public function __construct() {

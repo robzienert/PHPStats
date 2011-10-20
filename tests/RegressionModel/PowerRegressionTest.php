@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
+require_once('lib/Stats.php');
+require_once('lib/RegressionModel/RegressionModel.php');
 require_once('lib/RegressionModel/PowerRegression.php');
 
-class PowerRegressionTest extends CustomPHPUnit {
+use \PHPStats\RegressionModel\PowerRegression as PowerRegression;
+
+class PowerRegressionTest extends PHPUnit_Framework_TestCase {
 	private $regressionModel;
 
 	public function __construct() {

@@ -22,7 +22,8 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\RegressionModel;
+namespace PHPStats\RegressionModel;
+use \PHPStats\Stats as Stats;
 
 /**
  * ExponentialRegression class
