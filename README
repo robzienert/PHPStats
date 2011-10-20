@@ -1,5 +1,5 @@
 PHP Stats
-A Fully Featured Financial and Statistical Library for PHP
+A Fully Featured Statistical Library for PHP
 
 Inspired in part by fantastic libraries such as SciPy and in part by the difficulty in getting additional binaries installed in a shared hosting environment, PHPStats aims to extend and fill gaps in PHP's core mathematical functions.  The library is built for both a frequentist mind-set and a Bayesian mind-set.  It also contains a number of financial classes intended to speed the implementation of PHP projects in a business setting and to raise PHP's profile in enterprise intranet applications.
 
