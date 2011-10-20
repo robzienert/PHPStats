@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats;
+namespace PHPStats;
 /**
  * Stats class
  * 

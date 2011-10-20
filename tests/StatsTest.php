@@ -1,7 +1,4 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
-require_once('lib/Stats.php');
-
 /**
  * Note to any reading this file:
  * 
@@ -12,10 +9,10 @@ require_once('lib/Stats.php');
  * the corresponding approximations and therefore be able to make the tests
  * accurate to a higher degree would be most welcome.
  */
+include('lib/Stats.php');
+use \PHPStats\Stats as Stats;
 
-use PHPStats\Stats as Stats;
-
-class StatsTest extends CustomPHPUnit {
+class StatsTest extends PHPUnit_Framework_TestCase {
 	private $datax;
 	private $datay;
 	private $dataz;
