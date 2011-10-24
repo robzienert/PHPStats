@@ -86,5 +86,27 @@ class StatisticalTests {
 		}
 		return self::oneSampleTTest($data, $populationAverage);
 	}
+	
+	/**
+	 * Pearson's Chi-Squared Goodness of Fit Test
+	 * 
+	 * Tests whether a set of observations is significantly different than a
+	 * set of expected values. To test goodness of fit against a distribution,
+	 * use the appropriate distribution class to generate a corresponding set
+	 * of expected values before calling this.
+	 * 
+	 * @param array $observations The set of observations to be tested
+	 * @param array $expected The set of expected values to be tested
+	 * @param int $df The degrees of freedom in the test
+	 * @return float The probability of getting the chi-squared statistic or less
+	 */
+	static function chiSquareTest(array $observations, array $expected, $df) {
+		$sum = 0;
+		$pairsTested = min(count($observations), count($observations));
+		for ($i = 0; $i < $pairsTested; $i++) {
+			$sum += pow($observations[$i] - $expected[$i], 2)/$expected[$i];
+		}
+		return \PHPStats\ProbabilityDistribution\ChiSquare::getCdf($sum, $df);
+	}
 }
 ?>
