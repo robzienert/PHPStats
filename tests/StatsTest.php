@@ -9,7 +9,7 @@
  * the corresponding approximations and therefore be able to make the tests
  * accurate to a higher degree would be most welcome.
  */
-include('lib/Stats.php');
+require_once('lib/Stats.php');
 use \PHPStats\Stats as Stats;
 
 class StatsTest extends PHPUnit_Framework_TestCase {
@@ -123,6 +123,16 @@ class StatsTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(6, round(Stats::gamma(4), 5));
 		$this->assertEquals(24, round(Stats::gamma(5), 5));
 		$this->assertEquals(120, round(Stats::gamma(6), 4));
+	}
+
+	public function test_gammaln() {
+		$this->assertEquals(round(log(1), 3), round(Stats::gammaln(1), 3));
+		$this->assertEquals(round(log(1), 3), round(Stats::gammaln(2), 3));
+		$this->assertEquals(round(log(1.3293326), 5), round(Stats::gammaln(2.5), 5));
+		$this->assertEquals(round(log(2), 5), round(Stats::gammaln(3), 5));
+		$this->assertEquals(round(log(6), 5), round(Stats::gammaln(4), 5));
+		$this->assertEquals(round(log(24), 5), round(Stats::gammaln(5), 5));
+		$this->assertEquals(round(log(120), 4), round(Stats::gammaln(6), 4));
 	}
 
 	public function test_lowerGamma() {
