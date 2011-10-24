@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 class Exponential extends ProbabilityDistribution {
 	private $lambda;
@@ -49,7 +49,7 @@ class Exponential extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	public function pdf($x) {
-		return self::gerPdf($x, $this->lambda);
+		return self::getPdf($x, $this->lambda);
 	}
 	
 	/**

@@ -23,7 +23,6 @@
  * @package PHPStats
  */
 namespace PHPStats\RegressionModel;
-use \PHPStats\Stats as Stats;
 
 /**
  * LogarithmicRegression class
@@ -49,10 +48,10 @@ class LogarithmicRegression extends RegressionModel {
 		$logx = array();
 		foreach ($datax as $x) $logx[] = log($x);
 
-		$this->r = Stats::correlation($logx, $datay);
+		$this->r = \PHPStats\Stats::correlation($logx, $datay);
 
-		$this->beta = Stats::covariance($logx, $datay)/Stats::variance($logx);
-		$this->alpha = Stats::average($datay) - $this->beta*Stats::average($logx);
+		$this->beta = \PHPStats\Stats::covariance($logx, $datay)/\PHPStats\Stats::variance($logx);
+		$this->alpha = \PHPStats\Stats::average($datay) - $this->beta*\PHPStats\Stats::average($logx);
 	}
 	
 	/**

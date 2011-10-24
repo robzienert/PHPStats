@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
-require_once('lib/ProbabilityDistribution/Discrete/Poisson.php');
+require_once('lib/Stats.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/Poisson.php');
 
-class PoissonTest extends CustomPHPUnit {
+use \PHPStats\ProbabilityDistribution\Poisson as Poisson;
+
+class PoissonTest extends PHPUnit_Framework_TestCase {
 	private $testObject;
 
 	public function __construct() {

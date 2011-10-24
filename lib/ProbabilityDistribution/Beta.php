@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 //Depends on Gamma.php.  TODO: Refactor that out later.
 class Beta extends ProbabilityDistribution {
 	private $alpha;
@@ -114,8 +114,8 @@ class Beta extends ProbabilityDistribution {
 		@return float The random variate.
 	*/
 	static function getRvs($alpha = 1, $beta = 1) {
-		$x = Gamma::getRvs($alpha, 1);
-		$y = Gamma::getRvs($beta, 1);
+		$x = \PHPStats\ProbabilityDistribution\Gamma::getRvs($alpha, 1);
+		$y = \PHPStats\ProbabilityDistribution\Gamma::getRvs($beta, 1);
 		return $x/($x + $y);
 	}
 	
@@ -128,7 +128,7 @@ class Beta extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getPdf($x, $alpha = 1, $beta = 1) {
-		if ($x >= 0 && $x <= 1) return pow($x, $alpha - 1)*pow(1 - $x, $beta - 1)/Stats::beta($alpha, $beta);
+		if ($x >= 0 && $x <= 1) return pow($x, $alpha - 1)*pow(1 - $x, $beta - 1)/\PHPStats\Stats::beta($alpha, $beta);
 		else return 0.0;
 	}
 	
@@ -141,7 +141,7 @@ class Beta extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $alpha = 1, $beta = 1) {
-		return Stats::regularizedIncompleteBeta($alpha, $beta, $x);
+		return \PHPStats\Stats::regularizedIncompleteBeta($alpha, $beta, $x);
 	}
 	
 	/**

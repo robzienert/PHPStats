@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
-require_once('lib/ProbabilityDistribution/Discrete/DiscreteUniform.php');
+require_once('lib/Stats.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/DiscreteUniform.php');
 
-class DiscreteUniformTest extends CustomPHPUnit {
+use \PHPStats\ProbabilityDistribution\DiscreteUniform as DiscreteUniform;
+
+class DiscreteUniformTest extends PHPUnit_Framework_TestCase {
 	private $testObject;
 
 	public function __construct() {

@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
-require_once('lib/ProbabilityDistribution/Discrete/Binomial.php');
+require_once('lib/Stats.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/Binomial.php');
 
-class BinomialTest extends CustomPHPUnit {
+use \PHPStats\ProbabilityDistribution\Binomial as Binomial;
+
+class BinomialTest extends PHPUnit_Framework_TestCase {
 	private $testObject;
 
 	public function __construct() {

@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 class Gamma extends ProbabilityDistribution {
 	private $k;
@@ -154,7 +154,7 @@ class Gamma extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getPdf($x, $k = 1, $theta = 1) {
-		return pow($x, $k - 1)*exp(-$x/$theta)/(Stats::gamma($k)*pow($theta, $k));
+		return pow($x, $k - 1)*exp(-$x/$theta)/(\PHPStats\Stats::gamma($k)*pow($theta, $k));
 	}
 	
 	/**
@@ -166,7 +166,7 @@ class Gamma extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $k = 1, $theta = 1) {
-		return Stats::lowerGamma($k, $x/$theta)/Stats::gamma($k);
+		return \PHPStats\Stats::lowerGamma($k, $x/$theta)/\PHPStats\Stats::gamma($k);
 	}
 	
 	/**

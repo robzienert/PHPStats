@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 class StudentsT extends ProbabilityDistribution {
 	private $df;
@@ -122,7 +122,7 @@ class StudentsT extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getPdf($x, $df = 1) {
-		return pow(1 + pow($x, 2)/$df, -($df + 1)/2)/(sqrt($df)*Stats::beta(.5, $df/2));
+		return pow(1 + pow($x, 2)/$df, -($df + 1)/2)/(sqrt($df)*\PHPStats\Stats::beta(.5, $df/2));
 	}
 	
 	/**
@@ -133,7 +133,7 @@ class StudentsT extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $df = 1) {
-		$return = 1 - .5*Stats::regularizedIncompleteBeta($df/2, .5, $df/(pow($x, 2) + $df)); //Valid only for $x > 0
+		$return = 1 - .5*\PHPStats\Stats::regularizedIncompleteBeta($df/2, .5, $df/(pow($x, 2) + $df)); //Valid only for $x > 0
 		
 		if ($x < 0) return 1 - $return; //...but we can infer < 0 by way of symmetry.
 		elseif ($x == 0) return .5; //Can't mirror it for zero, but the mean is here so the CDF is 0.5 at this point.

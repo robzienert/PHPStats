@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 class Normal extends ProbabilityDistribution {
 	private $mu;
@@ -140,7 +140,7 @@ class Normal extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $mu = 0.0, $variance = 1.0) {
-		return (1 + Stats::erf(($x - $mu)/sqrt(2*$variance)))/2;
+		return (1 + \PHPStats\Stats::erf(($x - $mu)/sqrt(2*$variance)))/2;
 	}
 	
 	/**

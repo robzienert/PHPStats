@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 /**
  * Poisson class
@@ -141,7 +141,7 @@ class Poisson extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getPmf($x, $lambda = 1) {
-		return exp(-$lambda)*pow($lambda, $x)/Stats::factorial($x);
+		return exp(-$lambda)*pow($lambda, $x)/\PHPStats\Stats::factorial($x);
 	}
 	
 	/**

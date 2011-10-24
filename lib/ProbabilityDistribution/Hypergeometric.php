@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 /**
  * Hypergeometric class
@@ -150,7 +150,7 @@ class Hypergeometric extends ProbabilityDistribution {
 		$m = floor($m);
 		$n = floor($n);
 		
-		if ($L >= 1 && $m >= 0 && $n >= 0) return (Stats::combinations($m, $x)*Stats::combinations($L - $m, $n - $x))/Stats::combinations($L, $n);
+		if ($L >= 1 && $m >= 0 && $n >= 0) return (\PHPStats\Stats::combinations($m, $x)*\PHPStats\Stats::combinations($L - $m, $n - $x))/\PHPStats\Stats::combinations($L, $n);
 		else return 0.0;
 	}
 	
@@ -171,7 +171,7 @@ class Hypergeometric extends ProbabilityDistribution {
 		
 		if ($L >= 1 && $m >= 0 && $n >= 0) {
 			$sum = 0;
-			for($i = 0; $i <= $x; $i++) $sum += (Stats::combinations($m, $i)*Stats::combinations($L - $m, $n - $i))/Stats::combinations($L, $n);
+			for($i = 0; $i <= $x; $i++) $sum += (\PHPStats\Stats::combinations($m, $i)*\PHPStats\Stats::combinations($L - $m, $n - $i))/\PHPStats\Stats::combinations($L, $n);
 			return $sum;
 		}
 		else return 0.0;

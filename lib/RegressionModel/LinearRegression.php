@@ -23,7 +23,6 @@
  * @package PHPStats
  */
 namespace PHPStats\RegressionModel;
-use \PHPStats\Stats as Stats;
 
 /**
  * LinearRegression class
@@ -45,10 +44,10 @@ class LinearRegression extends RegressionModel {
 	 * @return LinearRegression An object representing the regression model
 	 */
 	public function __construct(array $datax, array $datay) {
-		$this->beta = Stats::covariance($datax, $datay)/Stats::variance($datax);
-		$this->alpha = Stats::average($datay) - $this->beta*Stats::average($datax);
+		$this->beta = \PHPStats\Stats::covariance($datax, $datay)/\PHPStats\Stats::variance($datax);
+		$this->alpha = \PHPStats\Stats::average($datay) - $this->beta*\PHPStats\Stats::average($datax);
 
-		$this->r = Stats::correlation($datax, $datay);
+		$this->r = \PHPStats\Stats::correlation($datax, $datay);
 	}
 	
 	/**

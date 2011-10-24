@@ -22,8 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
-
+namespace PHPStats\ProbabilityDistribution;
 /**
  * Binomial class
  * 
@@ -139,7 +138,7 @@ class Binomial extends ProbabilityDistribution {
 	 * @return float The probability
 	 */
 	public static function getPmf($x, $p = 0.5, $n = 1) {
-		return Stats::combinations($n, $x)*pow($p, $x)*pow(1 - $p, $n - $x);
+		return \PHPStats\Stats::combinations($n, $x)*pow($p, $x)*pow(1 - $p, $n - $x);
 	}
 	
 	/**

@@ -23,7 +23,6 @@
  * @package PHPStats
  */
 namespace PHPStats\RegressionModel;
-use \PHPStats\Stats as Stats;
 
 /**
  * ExponentialRegression class
@@ -49,10 +48,10 @@ class ExponentialRegression extends RegressionModel {
 		$logy = array();
 		foreach ($datay as $y) $logy[] = log($y);
 
-		$this->r = Stats::correlation($datax, $logy);
+		$this->r = \PHPStats\Stats::correlation($datax, $logy);
 
-		$logbeta = Stats::covariance($datax, $logy)/Stats::variance($datax);
-		$logalpha = Stats::average($logy) - $logbeta*Stats::average($datax);
+		$logbeta = \PHPStats\Stats::covariance($datax, $logy)/\PHPStats\Stats::variance($datax);
+		$logalpha = \PHPStats\Stats::average($logy) - $logbeta*\PHPStats\Stats::average($datax);
 
 		$this->beta = exp($logbeta);
 		$this->alpha = exp($logalpha);

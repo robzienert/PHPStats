@@ -22,7 +22,7 @@
  *
  * @package PHPStats
  */
-namespace \PHPStats\ProbabilityDistribution;
+namespace PHPStats\ProbabilityDistribution;
 
 class ChiSquare extends ProbabilityDistribution {
 	private $k;
@@ -151,7 +151,7 @@ class ChiSquare extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getPdf($x, $k = 1) {
-		return pow($x, $k/2.0 - 1)*exp(-$x/2.0)/(Stats::gamma($k/2.0)*pow(2, $k/2.0));
+		return pow($x, $k/2.0 - 1)*exp(-$x/2.0)/(\PHPStats\Stats::gamma($k/2.0)*pow(2, $k/2.0));
 	}
 	
 	/**
@@ -162,7 +162,7 @@ class ChiSquare extends ProbabilityDistribution {
 		@return float The probability
 	*/
 	static function getCdf($x, $k = 1) {
-		return Stats::lowerGamma($k/2.0, $x/2)/Stats::gamma($k/2.0);
+		return \PHPStats\Stats::lowerGamma($k/2.0, $x/2)/\PHPStats\Stats::gamma($k/2.0);
 	}
 	
 	/**

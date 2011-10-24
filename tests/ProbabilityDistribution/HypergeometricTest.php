@@ -1,8 +1,11 @@
 <?php
-require_once('tests/CustomPHPUnit.php');
-require_once('lib/ProbabilityDistribution/Discrete/Hypergeometric.php');
+require_once('lib/Stats.php');
+require_once('lib/ProbabilityDistribution/ProbabilityDistribution.php');
+require_once('lib/ProbabilityDistribution/Hypergeometric.php');
 
-class HypergeometricTest extends CustomPHPUnit {
+use \PHPStats\ProbabilityDistribution\Hypergeometric as Hypergeometric;
+
+class HypergeometricTest extends PHPUnit_Framework_TestCase {
 	private $testObject;
 
 	public function __construct() {

@@ -369,7 +369,7 @@ class Stats {
 	/**
 	 * Calculates the regularized incomplete beta function.
 	 * 
-	 * Implements the jStat method of calculating the incomplete beta,
+	 * Implements the jStat method of calculating the incomplete beta.
 	 * 
 	 * @param float $a The alpha parameter
 	 * @param float $b The beta parameter
